@@ -3,15 +3,14 @@ import 'package:flutter/material.dart';
 class PageFormat {
   PageFormat();
 
-  static SafeArea bodyFormat(
+  static SafeArea bodyFormat(context,
       {String name,
       String sectionTitle,
       List options,
       int upperFlex,
       int middleFlex,
       int lowerFlex,
-      String pageType,
-      context}) {
+      String pageType}) {
     return SafeArea(
         child: Column(
       children: [
@@ -24,24 +23,28 @@ class PageFormat {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(50)),
               ),
-              child: Sections.upperContent(name: name, flex: upperFlex),
+              child: Sections.upperSection(name: name, flex: upperFlex),
             )),
         Flexible(
             flex: middleFlex,
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-              if (sectionTitle != null)
-                Sections.optionContainer(
+              if (pageType != 'Scan')
+                Sections.middleSection(
+                  context,
                   title: sectionTitle,
                   options: options,
+                  pageType: pageType,
                 )
             ])),
         Flexible(
             flex: lowerFlex,
             child: Column(children: [
-              if (options != null) OptionButtons.optionsBtn('Ongoing Visits'),
+              if (pageType == "Home")
+                SmallWidgets.optionsBtn(context, 'Ongoing Visits', 'light'),
               if (pageType == 'Scan')
-                Expanded(child: Sections.lowerOption(context)),
+                Expanded(
+                    child: Sections.lowerSection(context, option: options)),
             ]))
       ],
     ));
@@ -49,7 +52,7 @@ class PageFormat {
 }
 
 class Sections {
-  static Align upperContent({name, flex}) {
+  static Align upperSection({String name, int flex}) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Text(name,
@@ -63,7 +66,8 @@ class Sections {
     );
   }
 
-  static Container optionContainer({title, options}) {
+  static Container middleSection(context,
+      {String title, List options, String pageType}) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
         decoration: BoxDecoration(
@@ -83,19 +87,28 @@ class Sections {
                   color: Colors.black,
                   fontFamily: 'Nunito',
                 )),
-            Sections.optionSection(optionList: options),
+            if (pageType == 'Home') optionSection(context, optionList: options),
+            if (pageType == 'Form') formSection(),
           ],
         ));
   }
 
-  static Column optionSection({optionList}) {
+  static Column optionSection(context, {List optionList}) {
     return Column(children: [
       for (var options in optionList)
-        OptionButtons.optionsBtn(options.toString()),
+        SmallWidgets.optionsBtn(context, options.toString(), 'light'),
     ]);
   }
 
-  static Container lowerOption(context) {
+  static Column formSection() {
+    final nameController = TextEditingController();
+
+    return Column(
+      children: [SmallWidgets.visitForm(fieldController: nameController)],
+    );
+  }
+
+  static Container lowerSection(context, {List option}) {
     return Container(
       //padding: EdgeInsets.only(bottom: 80.0),
       width: MediaQuery.of(context).size.width,
@@ -103,16 +116,28 @@ class Sections {
         color: Color.fromRGBO(25, 24, 81, 1),
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
-      child: Center(child: Text('Testing')),
+      child: Center(
+          child: SmallWidgets.optionsBtn(context,
+              option.toString().replaceAll(RegExp(r'[^\w\s]+'), ''), 'dark')),
     );
   }
 }
 
-class OptionButtons {
-  static ElevatedButton optionsBtn(options) {
+class SmallWidgets {
+  static ElevatedButton optionsBtn(context, String option, btnType) {
+    Color btnColor;
+
+    if (btnType == "light") {
+      btnColor = Color.fromRGBO(243, 233, 211, 1);
+    } else if (btnType == "dark") {
+      btnColor = Color.fromRGBO(253, 180, 23, 1);
+    }
+
     return ElevatedButton(
-      onPressed: () {},
-      child: Text(options,
+      onPressed: () {
+        WidgetMethods.optionResponse(context, response: option);
+      },
+      child: Text(option,
           style: TextStyle(
             fontSize: 18,
             color: Colors.black,
@@ -120,12 +145,78 @@ class OptionButtons {
           )),
       style: ElevatedButton.styleFrom(
         minimumSize: Size(240, 40),
-        primary: Color.fromRGBO(243, 233, 211, 1),
+        primary: btnColor,
         side: BorderSide(color: Colors.black),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(40.0),
         ),
       ),
+    );
+  }
+
+  static TextFormField visitForm({TextEditingController fieldController}) {
+    return TextFormField(
+      controller: fieldController,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontSize: 20.0,
+      ),
+      decoration: Styles.formStyle(),
+    );
+  }
+}
+
+class WidgetMethods {
+  static optionResponse(context, {String response}) {
+    switch (response) {
+      case "On Foot":
+        {
+          Navigator.pushNamed(context, '/qr');
+          //Navigator.pushNamed(context, '/foot');
+        }
+        break;
+
+      case "Manual Input":
+        {
+          Navigator.pushNamed(context, '/foot'); // temporary
+        }
+        break;
+
+      case "With Vehicle":
+        {
+          Navigator.pushNamed(context, '/vehicle');
+        }
+        break;
+
+      case "Ongoing Visits":
+        {
+          Navigator.pushNamed(context, '/ongoing');
+        }
+        break;
+
+      default:
+        {
+          return;
+        }
+        break;
+    }
+  }
+}
+
+class Styles {
+  static InputDecoration formStyle() {
+    return InputDecoration(
+      hintText: 'Title',
+      //enabled: enableField,
+      filled: true,
+      fillColor: Colors.white,
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+      focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color.fromRGBO(25, 24, 81, 1),
+          ),
+          borderRadius: BorderRadius.circular(10.0)),
+      contentPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 3),
     );
   }
 }

@@ -8,8 +8,12 @@ void main() {
     theme: ThemeData(scaffoldBackgroundColor: Color.fromRGBO(253, 180, 23, 1)),
     initialRoute: '/',
     routes: {
-      //'/': (context) => Dashboard(),
-      '/': (context) => ScanQR(),
+      '/': (context) => Dashboard(),
+      '/qr': (context) => ScanQR(),
+      '/foot': (context) => OnFoot(),
+      '/vehicle': (context) => WithVehicle(),
+      '/ocr': (context) => ScanOCR(),
+      '/ongoing': (context) => OngoingVisits(),
     },
   ));
 }
@@ -35,6 +39,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageFormat.bodyFormat(
+        context,
         name: 'Firstname M. Surname',
         sectionTitle: 'Add Visitors',
         options: [
@@ -44,6 +49,7 @@ class Dashboard extends StatelessWidget {
         upperFlex: 2,
         middleFlex: 3,
         lowerFlex: 1,
+        pageType: "Home",
       ),
     );
   }
@@ -61,8 +67,9 @@ class _ScanQRState extends State<ScanQR> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageFormat.bodyFormat(
-        context: context,
+        context,
         name: 'Firstname M. Surname',
+        options: ['Manual Input'],
         upperFlex: 3,
         middleFlex: 11,
         lowerFlex: 2,
@@ -79,6 +86,22 @@ class OnFoot extends StatefulWidget {
   _OnFootState createState() => _OnFootState();
 }
 
+class _OnFootState extends State<OnFoot> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: PageFormat.bodyFormat(
+        context,
+        name: 'Firstname M. Surname',
+        upperFlex: 3,
+        middleFlex: 13,
+        pageType: 'Form',
+        sectionTitle: 'On Foot',
+      ),
+    );
+  }
+}
+
 class WithVehicle extends StatefulWidget {
   //const WithVehicle({ Key? key }) : super(key: key);
 
@@ -89,14 +112,16 @@ class WithVehicle extends StatefulWidget {
 class _WithVehicleState extends State<WithVehicle> {
   @override
   Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class _OnFootState extends State<OnFoot> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: PageFormat.bodyFormat(
+        context,
+        name: 'Firstname M. Surname',
+        upperFlex: 3,
+        middleFlex: 13,
+        pageType: 'Form',
+        sectionTitle: 'On Foot',
+      ),
+    );
   }
 }
 
@@ -110,7 +135,17 @@ class ScanOCR extends StatefulWidget {
 class _ScanOCRState extends State<ScanOCR> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: PageFormat.bodyFormat(
+        context,
+        name: 'Firstname M. Surname',
+        options: ['Manual Input'],
+        upperFlex: 3,
+        middleFlex: 11,
+        lowerFlex: 2,
+        pageType: 'Scan',
+      ),
+    );
   }
 }
 
@@ -124,6 +159,15 @@ class OngoingVisits extends StatefulWidget {
 class _OngoingVisitsState extends State<OngoingVisits> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: PageFormat.bodyFormat(
+        context,
+        name: 'Firstname M. Surname',
+        upperFlex: 3,
+        middleFlex: 13,
+        pageType: 'List',
+        sectionTitle: 'On Foot',
+      ),
+    );
   }
 }
