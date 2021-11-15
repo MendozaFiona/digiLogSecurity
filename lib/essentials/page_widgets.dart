@@ -88,7 +88,8 @@ class Sections {
                   fontFamily: 'Nunito',
                 )),
             if (pageType == 'Home') optionSection(context, optionList: options),
-            if (pageType == 'Form') formSection(),
+            if (pageType == 'Form')
+              formSection('On Foot'), // change to dynamic later
           ],
         ));
   }
@@ -100,11 +101,27 @@ class Sections {
     ]);
   }
 
-  static Column formSection() {
-    final nameController = TextEditingController();
+  static Column formSection(String formType) {
+    Map txtFieldList;
+    final nameCtrlr = TextEditingController();
+    // code field isn't required, it is automatically sent to db
+    final contactCtrlr = TextEditingController();
+    final purposeCtrlr = TextEditingController();
+
+    if (formType == 'On Foot') {
+      txtFieldList = {
+        nameCtrlr: 'Name',
+        contactCtrlr: 'Contact Number',
+        purposeCtrlr: 'Purpose'
+      };
+    }
 
     return Column(
-      children: [SmallWidgets.visitForm(fieldController: nameController)],
+      children: [
+        for (var txtField in txtFieldList.keys)
+          SmallWidgets.visitForm(
+              fieldController: txtField, label: txtFieldList[txtField]),
+      ],
     );
   }
 
@@ -154,14 +171,26 @@ class SmallWidgets {
     );
   }
 
-  static TextFormField visitForm({TextEditingController fieldController}) {
-    return TextFormField(
-      controller: fieldController,
-      textAlign: TextAlign.center,
-      style: TextStyle(
-        fontSize: 20.0,
-      ),
-      decoration: Styles.formStyle(),
+  static Column visitForm(
+      {TextEditingController fieldController, String label}) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          width: 240,
+          height: 40,
+          child: TextFormField(
+            controller: fieldController,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18.0,
+            ),
+            decoration: Styles.formStyle(label),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -204,19 +233,19 @@ class WidgetMethods {
 }
 
 class Styles {
-  static InputDecoration formStyle() {
+  static InputDecoration formStyle(String label) {
     return InputDecoration(
-      hintText: 'Title',
+      hintText: label,
       //enabled: enableField,
       filled: true,
       fillColor: Colors.white,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(20.0)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0)),
       focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Color.fromRGBO(25, 24, 81, 1),
           ),
           borderRadius: BorderRadius.circular(10.0)),
-      contentPadding: EdgeInsets.symmetric(horizontal: 2, vertical: 3),
+      contentPadding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
     );
   }
 }
