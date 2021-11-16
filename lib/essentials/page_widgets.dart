@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class PageFormat {
-  PageFormat();
+  BuildContext context;
 
-  static SafeArea bodyFormat(context,
+  void setContext(BuildContext context) {
+    this.context = context;
+  }
+
+  SafeArea bodyFormat(
       {String name,
       String sectionTitle,
       List options,
@@ -11,6 +15,8 @@ class PageFormat {
       int middleFlex,
       int lowerFlex,
       String pageType}) {
+    var sections = Sections();
+
     return SafeArea(
         child: Column(
       children: [
@@ -30,8 +36,7 @@ class PageFormat {
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               if (pageType != 'Scan')
-                Sections.middleSection(
-                  context,
+                sections.middleSection(
                   title: sectionTitle,
                   options: options,
                   pageType: pageType,
@@ -41,17 +46,16 @@ class PageFormat {
             flex: lowerFlex,
             child: Column(children: [
               if (pageType == "Home")
-                SmallWidgets.optionsBtn(context, 'Ongoing Visits', 'light'),
+                SmallWidgets.optionsBtn('Ongoing Visits', 'light'),
               if (pageType == 'Scan')
-                Expanded(
-                    child: Sections.lowerSection(context, option: options)),
+                Expanded(child: sections.lowerSection(option: options)),
             ]))
       ],
     ));
   }
 }
 
-class Sections {
+class Sections extends PageFormat {
   static Align upperSection({String name, int flex}) {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -66,8 +70,7 @@ class Sections {
     );
   }
 
-  static Container middleSection(context,
-      {String title, List options, String pageType}) {
+  Container middleSection({String title, List options, String pageType}) {
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
         decoration: BoxDecoration(
@@ -87,27 +90,26 @@ class Sections {
                   color: Colors.black,
                   fontFamily: 'Nunito',
                 )),
-            if (pageType == 'Home') optionSection(context, optionList: options),
+            if (pageType == 'Home') optionSection(optionList: options),
             if (pageType == 'Form')
               formSection('On Foot'), // change to dynamic later
           ],
         ));
   }
 
-  static Column optionSection(context, {List optionList}) {
+  static Column optionSection({List optionList}) {
     return Column(children: [
       for (var options in optionList)
-        SmallWidgets.optionsBtn(context, options.toString(), 'light'),
+        SmallWidgets.optionsBtn(options.toString(), 'light'),
     ]);
   }
 
-  static Column formSection(String formType) {
+  Column formSection(String formType) {
     Map txtFieldList;
     final nameCtrlr = TextEditingController();
     // code field isn't required, it is automatically sent to db
     final contactCtrlr = TextEditingController();
     final purposeCtrlr = TextEditingController();
-
     if (formType == 'On Foot') {
       txtFieldList = {
         nameCtrlr: 'Name',
@@ -121,11 +123,12 @@ class Sections {
         for (var txtField in txtFieldList.keys)
           SmallWidgets.visitForm(
               fieldController: txtField, label: txtFieldList[txtField]),
+        //smallWidgets.optionsBtn(context, option, btnType);
       ],
     );
   }
 
-  static Container lowerSection(context, {List option}) {
+  Container lowerSection({List option}) {
     return Container(
       //padding: EdgeInsets.only(bottom: 80.0),
       width: MediaQuery.of(context).size.width,
@@ -134,15 +137,16 @@ class Sections {
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
       child: Center(
-          child: SmallWidgets.optionsBtn(context,
+          child: SmallWidgets.optionsBtn(
               option.toString().replaceAll(RegExp(r'[^\w\s]+'), ''), 'dark')),
     );
   }
 }
 
-class SmallWidgets {
-  static ElevatedButton optionsBtn(context, String option, btnType) {
+class SmallWidgets extends PageFormat {
+  static ElevatedButton optionsBtn(String option, btnType) {
     Color btnColor;
+    var widgetMethods = WidgetMethods();
 
     if (btnType == "light") {
       btnColor = Color.fromRGBO(243, 233, 211, 1);
@@ -152,7 +156,7 @@ class SmallWidgets {
 
     return ElevatedButton(
       onPressed: () {
-        WidgetMethods.optionResponse(context, response: option);
+        widgetMethods.optionResponse(response: option);
       },
       child: Text(option,
           style: TextStyle(
@@ -195,8 +199,8 @@ class SmallWidgets {
   }
 }
 
-class WidgetMethods {
-  static optionResponse(context, {String response}) {
+class WidgetMethods extends PageFormat {
+  optionResponse({String response}) {
     switch (response) {
       case "On Foot":
         {
@@ -232,7 +236,7 @@ class WidgetMethods {
   }
 }
 
-class Styles {
+class Styles extends PageFormat {
   static InputDecoration formStyle(String label) {
     return InputDecoration(
       hintText: label,

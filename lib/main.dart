@@ -37,9 +37,11 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var dashboard = PageFormat();
+    dashboard.setContext(context);
+
     return Scaffold(
-      body: PageFormat.bodyFormat(
-        context,
+      body: dashboard.bodyFormat(
         name: 'Firstname M. Surname',
         sectionTitle: 'Add Visitors',
         options: [
@@ -65,9 +67,11 @@ class ScanQR extends StatefulWidget {
 class _ScanQRState extends State<ScanQR> {
   @override
   Widget build(BuildContext context) {
+    var scanQR = PageFormat();
+    scanQR.setContext(context);
+
     return Scaffold(
-      body: PageFormat.bodyFormat(
-        context,
+      body: scanQR.bodyFormat(
         name: 'Firstname M. Surname',
         options: ['Manual Input'],
         upperFlex: 3,
@@ -89,9 +93,11 @@ class OnFoot extends StatefulWidget {
 class _OnFootState extends State<OnFoot> {
   @override
   Widget build(BuildContext context) {
+    var onFoot = PageFormat();
+    onFoot.setContext(context);
+
     return Scaffold(
-      body: PageFormat.bodyFormat(
-        context,
+      body: onFoot.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
         middleFlex: 13,
@@ -112,9 +118,11 @@ class WithVehicle extends StatefulWidget {
 class _WithVehicleState extends State<WithVehicle> {
   @override
   Widget build(BuildContext context) {
+    var withVehicle = PageFormat();
+    withVehicle.setContext(context);
+
     return Scaffold(
-      body: PageFormat.bodyFormat(
-        context,
+      body: withVehicle.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
         middleFlex: 13,
@@ -135,9 +143,11 @@ class ScanOCR extends StatefulWidget {
 class _ScanOCRState extends State<ScanOCR> {
   @override
   Widget build(BuildContext context) {
+    var scanOCR = PageFormat();
+    scanOCR.setContext(context);
+
     return Scaffold(
-      body: PageFormat.bodyFormat(
-        context,
+      body: scanOCR.bodyFormat(
         name: 'Firstname M. Surname',
         options: ['Manual Input'],
         upperFlex: 3,
@@ -159,9 +169,11 @@ class OngoingVisits extends StatefulWidget {
 class _OngoingVisitsState extends State<OngoingVisits> {
   @override
   Widget build(BuildContext context) {
+    var ongoingVisit = PageFormat();
+    ongoingVisit.setContext(context);
+
     return Scaffold(
-      body: PageFormat.bodyFormat(
-        context,
+      body: ongoingVisit.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
         middleFlex: 13,
