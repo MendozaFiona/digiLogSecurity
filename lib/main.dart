@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'essentials/page_widgets.dart';
+import 'essentials/page_format.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -66,10 +66,10 @@ class ScanQR extends StatefulWidget {
 class _ScanQRState extends State<ScanQR> {
   @override
   Widget build(BuildContext context) {
-    var scanQR = PageFormat(context);
+    var qrScan = PageFormat(context);
 
     return Scaffold(
-      body: scanQR.bodyFormat(
+      body: qrScan.bodyFormat(
         name: 'Firstname M. Surname',
         options: ['Manual Input'],
         upperFlex: 3,
@@ -97,7 +97,7 @@ class _OnFootState extends State<OnFoot> {
       body: onFoot.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
-        middleFlex: 13,
+        middleFlex: 11,
         pageType: 'Form',
         sectionTitle: 'On Foot',
       ),
@@ -121,7 +121,7 @@ class _WithVehicleState extends State<WithVehicle> {
       body: withVehicle.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
-        middleFlex: 13,
+        middleFlex: 11,
         pageType: 'Form',
         sectionTitle: 'On Foot',
       ),
@@ -139,10 +139,10 @@ class ScanOCR extends StatefulWidget {
 class _ScanOCRState extends State<ScanOCR> {
   @override
   Widget build(BuildContext context) {
-    var scanOCR = PageFormat(context);
+    var ocrScan = PageFormat(context);
 
     return Scaffold(
-      body: scanOCR.bodyFormat(
+      body: ocrScan.bodyFormat(
         name: 'Firstname M. Surname',
         options: ['Manual Input'],
         upperFlex: 3,
