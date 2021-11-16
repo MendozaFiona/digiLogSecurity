@@ -3,8 +3,19 @@ import 'package:flutter/material.dart';
 class PageFormat {
   BuildContext context;
 
-  void setContext(BuildContext context) {
+  PageFormat(BuildContext context) {
     this.context = context;
+  }
+
+  set setContext(BuildContext context) {
+    //print(context);
+
+    this.context = context;
+    print(this.context);
+  }
+
+  BuildContext get getContext {
+    return context;
   }
 
   SafeArea bodyFormat(
@@ -15,7 +26,8 @@ class PageFormat {
       int middleFlex,
       int lowerFlex,
       String pageType}) {
-    var sections = Sections();
+    var sections = Sections(this.context);
+    var smallWidgets = SmallWidgets(this.context);
 
     return SafeArea(
         child: Column(
@@ -46,7 +58,7 @@ class PageFormat {
             flex: lowerFlex,
             child: Column(children: [
               if (pageType == "Home")
-                SmallWidgets.optionsBtn('Ongoing Visits', 'light'),
+                smallWidgets.optionsBtn('Ongoing Visits', 'light'),
               if (pageType == 'Scan')
                 Expanded(child: sections.lowerSection(option: options)),
             ]))
@@ -56,6 +68,8 @@ class PageFormat {
 }
 
 class Sections extends PageFormat {
+  Sections(BuildContext context) : super(context);
+
   static Align upperSection({String name, int flex}) {
     return Align(
       alignment: Alignment.bottomCenter,
@@ -97,10 +111,11 @@ class Sections extends PageFormat {
         ));
   }
 
-  static Column optionSection({List optionList}) {
+  Column optionSection({List optionList}) {
+    var smallWidgets = SmallWidgets(super.context);
     return Column(children: [
       for (var options in optionList)
-        SmallWidgets.optionsBtn(options.toString(), 'light'),
+        smallWidgets.optionsBtn(options.toString(), 'light'),
     ]);
   }
 
@@ -129,24 +144,27 @@ class Sections extends PageFormat {
   }
 
   Container lowerSection({List option}) {
+    var smallWidgets = SmallWidgets(super.context);
     return Container(
       //padding: EdgeInsets.only(bottom: 80.0),
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(this.context).size.width,
       decoration: BoxDecoration(
         color: Color.fromRGBO(25, 24, 81, 1),
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
       child: Center(
-          child: SmallWidgets.optionsBtn(
+          child: smallWidgets.optionsBtn(
               option.toString().replaceAll(RegExp(r'[^\w\s]+'), ''), 'dark')),
     );
   }
 }
 
 class SmallWidgets extends PageFormat {
-  static ElevatedButton optionsBtn(String option, btnType) {
+  SmallWidgets(BuildContext context) : super(context);
+
+  ElevatedButton optionsBtn(String option, btnType) {
     Color btnColor;
-    var widgetMethods = WidgetMethods();
+    var widgetMethods = WidgetMethods(super.context);
 
     if (btnType == "light") {
       btnColor = Color.fromRGBO(243, 233, 211, 1);
@@ -200,30 +218,32 @@ class SmallWidgets extends PageFormat {
 }
 
 class WidgetMethods extends PageFormat {
+  WidgetMethods(BuildContext context) : super(context);
+
   optionResponse({String response}) {
     switch (response) {
       case "On Foot":
         {
-          Navigator.pushNamed(context, '/qr');
+          Navigator.pushNamed(this.context, '/qr');
           //Navigator.pushNamed(context, '/foot');
         }
         break;
 
       case "Manual Input":
         {
-          Navigator.pushNamed(context, '/foot'); // temporary
+          Navigator.pushNamed(this.context, '/foot'); // temporary
         }
         break;
 
       case "With Vehicle":
         {
-          Navigator.pushNamed(context, '/vehicle');
+          Navigator.pushNamed(this.context, '/vehicle');
         }
         break;
 
       case "Ongoing Visits":
         {
-          Navigator.pushNamed(context, '/ongoing');
+          Navigator.pushNamed(this.context, '/ongoing');
         }
         break;
 
@@ -237,6 +257,8 @@ class WidgetMethods extends PageFormat {
 }
 
 class Styles extends PageFormat {
+  Styles(BuildContext context) : super(context);
+
   static InputDecoration formStyle(String label) {
     return InputDecoration(
       hintText: label,

@@ -37,8 +37,7 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboard = PageFormat();
-    dashboard.setContext(context);
+    var dashboard = PageFormat(context);
 
     return Scaffold(
       body: dashboard.bodyFormat(
@@ -67,8 +66,7 @@ class ScanQR extends StatefulWidget {
 class _ScanQRState extends State<ScanQR> {
   @override
   Widget build(BuildContext context) {
-    var scanQR = PageFormat();
-    scanQR.setContext(context);
+    var scanQR = PageFormat(context);
 
     return Scaffold(
       body: scanQR.bodyFormat(
@@ -93,8 +91,7 @@ class OnFoot extends StatefulWidget {
 class _OnFootState extends State<OnFoot> {
   @override
   Widget build(BuildContext context) {
-    var onFoot = PageFormat();
-    onFoot.setContext(context);
+    var onFoot = PageFormat(context);
 
     return Scaffold(
       body: onFoot.bodyFormat(
@@ -118,8 +115,7 @@ class WithVehicle extends StatefulWidget {
 class _WithVehicleState extends State<WithVehicle> {
   @override
   Widget build(BuildContext context) {
-    var withVehicle = PageFormat();
-    withVehicle.setContext(context);
+    var withVehicle = PageFormat(context);
 
     return Scaffold(
       body: withVehicle.bodyFormat(
@@ -143,8 +139,7 @@ class ScanOCR extends StatefulWidget {
 class _ScanOCRState extends State<ScanOCR> {
   @override
   Widget build(BuildContext context) {
-    var scanOCR = PageFormat();
-    scanOCR.setContext(context);
+    var scanOCR = PageFormat(context);
 
     return Scaffold(
       body: scanOCR.bodyFormat(
@@ -169,8 +164,7 @@ class OngoingVisits extends StatefulWidget {
 class _OngoingVisitsState extends State<OngoingVisits> {
   @override
   Widget build(BuildContext context) {
-    var ongoingVisit = PageFormat();
-    ongoingVisit.setContext(context);
+    var ongoingVisit = PageFormat(context);
 
     return Scaffold(
       body: ongoingVisit.bodyFormat(
