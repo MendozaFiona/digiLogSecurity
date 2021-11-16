@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';
 import 'package:digi_logsec/essentials/widget_methods.dart';
 import 'package:digi_logsec/essentials/styles.dart';
+import 'package:flutter/services.dart';
 
 class SmallWidgets extends PageFormat {
   SmallWidgets(BuildContext context) : super(context);
@@ -46,6 +47,20 @@ class SmallWidgets extends PageFormat {
 
   static Column formField(
       {TextEditingController fieldController, String label}) {
+    TextInputType fieldType = TextInputType.text;
+    double fieldHeight = 40;
+    int length = 40;
+    int lines = 1;
+
+    if (label == 'Purpose') {
+      fieldHeight = 80;
+      length = 100;
+      lines = 2;
+    } else if (label == 'Contact Number') {
+      fieldType = TextInputType.phone;
+      length = 11;
+    }
+
     return Column(
       children: [
         SizedBox(
@@ -58,10 +73,13 @@ class SmallWidgets extends PageFormat {
             child: Align(alignment: Alignment.centerLeft, child: Text(label))),
         Container(
           width: 240,
-          height: 40,
+          height: fieldHeight,
           child: TextFormField(
             controller: fieldController,
             textAlign: TextAlign.center,
+            keyboardType: fieldType,
+            inputFormatters: [LengthLimitingTextInputFormatter(length)],
+            maxLines: lines,
             style: TextStyle(
               fontSize: 18.0,
             ),

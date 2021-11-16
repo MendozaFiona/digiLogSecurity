@@ -5,6 +5,11 @@ class Styles extends PageFormat {
   Styles(BuildContext context) : super(context);
 
   static InputDecoration formStyle(String label) {
+    double conPadding = 1;
+
+    if (label == 'Purpose') {
+      conPadding = 20;
+    }
     return InputDecoration(
       hintText: label,
       //enabled: enableField,
@@ -16,7 +21,7 @@ class Styles extends PageFormat {
             color: Color.fromRGBO(25, 24, 81, 1),
           ),
           borderRadius: BorderRadius.circular(10.0)),
-      contentPadding: EdgeInsets.symmetric(horizontal: 1, vertical: 1),
+      contentPadding: EdgeInsets.symmetric(horizontal: 1, vertical: conPadding),
     );
   }
 }
