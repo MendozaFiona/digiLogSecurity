@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/sections.dart';
 import 'package:digi_logsec/essentials/small_widgets.dart';
@@ -22,6 +23,7 @@ class PageFormat {
       String pageType}) {
     var sections = Sections(this.context);
     var smallWidgets = SmallWidgets(this.context);
+    double upperPad = 40.0 / (upperFlex / 2);
 
     return SafeArea(
         child: Column(
@@ -29,34 +31,45 @@ class PageFormat {
         Flexible(
             flex: upperFlex,
             child: Container(
-              padding: EdgeInsets.only(bottom: 40.0 / (upperFlex / 2)),
+              padding: EdgeInsets.only(bottom: upperPad),
               decoration: BoxDecoration(
                 color: Color.fromRGBO(25, 24, 81, 1),
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(50)),
               ),
-              child: Sections.upperSection(name: name, flex: upperFlex),
-            )),
-        Flexible(
-            flex: middleFlex,
-            child: SingleChildScrollView(
-              child: Container(
-                height:
-                    (this.fullHeight / (upperFlex + middleFlex + lowerFlex)) *
-                        middleFlex,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (pageType != 'Scan')
-                        sections.middleSection(
-                          title: sectionTitle,
-                          options: options,
-                          pageType: pageType,
-                        ),
-                      if (pageType == 'Form') sections.formBottomSection()
-                    ]),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Sections.upperSection(name: name, flex: upperFlex),
+                ],
               ),
             )),
+        Flexible(
+          flex: middleFlex,
+          child: Container(
+            height: (this.fullHeight / (upperFlex + middleFlex + lowerFlex)) *
+                middleFlex,
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+              if (pageType == 'List')
+                Flexible(
+                  child: Stack(
+                    children: [
+                      VisitSearch(),
+                      sections.middleSection(pageType: pageType),
+                    ],
+                  ),
+                ),
+              if (pageType == 'Home' || pageType == 'Form')
+                sections.middleSection(
+                  title: sectionTitle,
+                  options: options,
+                  pageType: pageType,
+                ),
+              if (pageType == 'Form') sections.formBottomSection(),
+            ]),
+          ),
+        ),
         Flexible(
             flex: lowerFlex,
             child: Column(children: [

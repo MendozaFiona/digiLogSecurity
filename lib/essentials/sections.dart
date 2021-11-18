@@ -19,31 +19,43 @@ class Sections extends PageFormat {
     );
   }
 
-  Container middleSection({String title, List options, String pageType}) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(255, 255, 255, 0.15),
-          border: Border.all(
-            color: Colors.white,
-          ),
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(title,
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  fontFamily: 'Nunito',
-                )),
-            if (pageType == 'Home') optionSection(optionList: options),
-            if (pageType == 'Form')
-              formSection('On Foot'), // change to dynamic later
-          ],
-        ));
+  Center middleSection(
+      {String title = 'title here', List options, String pageType}) {
+    double sectionMargin = 0;
+
+    if (pageType == 'List') {
+      sectionMargin = 70;
+    }
+
+    return Center(
+      child: SingleChildScrollView(
+        child: Container(
+            margin: EdgeInsets.symmetric(vertical: sectionMargin),
+            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(255, 255, 255, 0.15),
+              border: Border.all(
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(title,
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontFamily: 'Nunito',
+                    )),
+                if (pageType == 'Home') optionSection(optionList: options),
+                if (pageType == 'Form')
+                  formSection('On Foot'), // change to dynamic later
+              ],
+            )),
+      ),
+    );
   }
 
   Column optionSection({List optionList}) {

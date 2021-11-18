@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import 'essentials/page_format.dart';
 
@@ -94,6 +95,7 @@ class _OnFootState extends State<OnFoot> {
     var onFoot = PageFormat(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: onFoot.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
@@ -118,6 +120,7 @@ class _WithVehicleState extends State<WithVehicle> {
     var withVehicle = PageFormat(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: withVehicle.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
@@ -158,15 +161,19 @@ class OngoingVisits extends StatefulWidget {
   //const OngoingVisits({ Key? key }) : super(key: key);
 
   @override
-  _OngoingVisitsState createState() => _OngoingVisitsState();
+  OngoingVisitsState createState() => OngoingVisitsState();
 }
 
-class _OngoingVisitsState extends State<OngoingVisits> {
+class OngoingVisitsState extends State<OngoingVisits> {
+  FloatingSearchBarController visitSearchController;
+  String selectedTerm;
+
   @override
   Widget build(BuildContext context) {
     var ongoingVisit = PageFormat(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ongoingVisit.bodyFormat(
         name: 'Firstname M. Surname',
         upperFlex: 3,
