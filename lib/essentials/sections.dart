@@ -20,7 +20,7 @@ class Sections extends PageFormat {
   }
 
   Center middleSection(
-      {String title = 'title here', List options, String pageType}) {
+      {String title = 'Title Here', List options, String pageType}) {
     double sectionMargin = 0;
 
     if (pageType == 'List') {
@@ -28,19 +28,19 @@ class Sections extends PageFormat {
     }
 
     return Center(
-      child: SingleChildScrollView(
-        child: Container(
-            margin: EdgeInsets.symmetric(vertical: sectionMargin),
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(255, 255, 255, 0.15),
-              border: Border.all(
-                color: Colors.white,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+      child: Container(
+          margin: EdgeInsets.symmetric(vertical: sectionMargin),
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(255, 255, 255, 0.15),
+            border: Border.all(
+              color: Colors.white,
             ),
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: SingleChildScrollView(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(title,
                     style: TextStyle(
@@ -51,10 +51,50 @@ class Sections extends PageFormat {
                     )),
                 if (pageType == 'Home') optionSection(optionList: options),
                 if (pageType == 'Form')
-                  formSection('On Foot'), // change to dynamic later
+                  formSection(), // change to dynamic later
+                if (pageType == 'List')
+                  Column(
+                    children: [
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                      Text('Test Data'),
+                    ],
+                  ),
               ],
-            )),
-      ),
+            ),
+          )),
     );
   }
 
@@ -66,17 +106,31 @@ class Sections extends PageFormat {
     ]);
   }
 
-  Column formSection(String formType) {
+  Column formSection() {
     Map txtFieldList;
+    String formType = this.context.toString().split('(').first;
     var smallWidgets = SmallWidgets(super.context);
     final nameCtrlr = TextEditingController();
     // code field isn't required, it is automatically sent to db
     final contactCtrlr = TextEditingController();
+    final vehicleTypeCtrlr = TextEditingController();
+    final plateNumCtrlr = TextEditingController();
     final purposeCtrlr = TextEditingController();
-    if (formType == 'On Foot') {
+
+    if (formType == 'OnFoot') {
       txtFieldList = {
         nameCtrlr: 'Name',
         contactCtrlr: 'Contact Number',
+        purposeCtrlr: 'Purpose'
+      };
+    }
+
+    if (formType == 'WithVehicle') {
+      txtFieldList = {
+        nameCtrlr: 'Name',
+        contactCtrlr: 'Contact Number',
+        vehicleTypeCtrlr: 'Type of Vehicle',
+        plateNumCtrlr: 'Plate Number',
         purposeCtrlr: 'Purpose'
       };
     }
@@ -89,7 +143,7 @@ class Sections extends PageFormat {
         SizedBox(
           height: 10,
         ),
-        smallWidgets.optionsBtn('ENTER', buttonType: 'blue')
+        smallWidgets.optionsBtn('ENTER', buttonType: 'blue'),
       ],
     );
   }

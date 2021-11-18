@@ -101,7 +101,7 @@ class _OnFootState extends State<OnFoot> {
         upperFlex: 3,
         middleFlex: 11,
         pageType: 'Form',
-        sectionTitle: 'On Foot',
+        sectionTitle: "Visitor's Details",
       ),
     );
   }
@@ -126,7 +126,7 @@ class _WithVehicleState extends State<WithVehicle> {
         upperFlex: 3,
         middleFlex: 11,
         pageType: 'Form',
-        sectionTitle: 'On Foot',
+        sectionTitle: "Visitor's Details",
       ),
     );
   }
@@ -147,7 +147,7 @@ class _ScanOCRState extends State<ScanOCR> {
     return Scaffold(
       body: ocrScan.bodyFormat(
         name: 'Firstname M. Surname',
-        options: ['Manual Input'],
+        options: ['Back'],
         upperFlex: 3,
         middleFlex: 11,
         lowerFlex: 2,
@@ -179,7 +179,7 @@ class OngoingVisitsState extends State<OngoingVisits> {
         upperFlex: 3,
         middleFlex: 13,
         pageType: 'List',
-        sectionTitle: 'On Foot',
+        sectionTitle: "Ongoing Visits",
       ),
     );
   }
