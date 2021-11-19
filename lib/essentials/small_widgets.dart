@@ -45,6 +45,33 @@ class SmallWidgets extends PageFormat {
     );
   }
 
+  Container visitTile(String name, String code) {
+    return Container(
+      height: 75,
+      decoration: Styles.listStyle(),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                name,
+                style: Styles.listFont(),
+              ),
+              Text(
+                code,
+                style: Styles.listFont(),
+              )
+            ],
+          ),
+          this.optionsBtn('End', buttonType: 'blue', buttonWidth: 70),
+        ],
+      ),
+    );
+  }
+
   static Column formField(
       {TextEditingController fieldController, String label}) {
     TextInputType fieldType = TextInputType.text;

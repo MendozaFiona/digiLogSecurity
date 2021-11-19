@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
@@ -41,6 +42,7 @@ class Dashboard extends StatelessWidget {
     var dashboard = PageFormat(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: dashboard.bodyFormat(
         name: 'Firstname M. Surname',
         sectionTitle: 'Add Visitors',
@@ -70,6 +72,7 @@ class _ScanQRState extends State<ScanQR> {
     var qrScan = PageFormat(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: qrScan.bodyFormat(
         name: 'Firstname M. Surname',
         options: ['Manual Input'],
@@ -111,10 +114,10 @@ class WithVehicle extends StatefulWidget {
   //const WithVehicle({ Key? key }) : super(key: key);
 
   @override
-  _WithVehicleState createState() => _WithVehicleState();
+  WithVehicleState createState() => WithVehicleState();
 }
 
-class _WithVehicleState extends State<WithVehicle> {
+class WithVehicleState extends State<WithVehicle> {
   @override
   Widget build(BuildContext context) {
     var withVehicle = PageFormat(context);
@@ -145,6 +148,7 @@ class _ScanOCRState extends State<ScanOCR> {
     var ocrScan = PageFormat(context);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: ocrScan.bodyFormat(
         name: 'Firstname M. Surname',
         options: ['Back'],

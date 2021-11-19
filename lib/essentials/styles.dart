@@ -4,6 +4,24 @@ import 'package:digi_logsec/essentials/page_format.dart';
 class Styles extends PageFormat {
   Styles(BuildContext context) : super(context);
 
+  static TextStyle listFont() {
+    return TextStyle(
+      fontSize: 16,
+      color: Colors.black,
+      fontFamily: 'Nunito',
+    );
+  }
+
+  static BoxDecoration listStyle() {
+    return BoxDecoration(
+      color: Color.fromRGBO(243, 233, 211, 1),
+      borderRadius: BorderRadius.all(Radius.circular(10)),
+      border: Border.all(
+        color: Colors.black,
+      ),
+    );
+  }
+
   static InputDecoration formStyle(String label) {
     double conPadding = 1;
 

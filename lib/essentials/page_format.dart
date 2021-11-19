@@ -1,4 +1,4 @@
-import 'package:digi_logsec/essentials/search_bar.dart';
+import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/sections.dart';
 import 'package:digi_logsec/essentials/small_widgets.dart';
@@ -7,20 +7,21 @@ class PageFormat {
   BuildContext context;
   var fullWidth, fullHeight;
 
-  PageFormat(BuildContext context) {
+  PageFormat(BuildContext context, {setFunction}) {
     this.context = context;
     this.fullWidth = MediaQuery.of(this.context).size.width;
     this.fullHeight = MediaQuery.of(this.context).size.height;
   }
 
-  SafeArea bodyFormat(
-      {String name,
-      String sectionTitle,
-      List options,
-      int upperFlex,
-      int middleFlex,
-      int lowerFlex = 0,
-      String pageType}) {
+  SafeArea bodyFormat({
+    String name,
+    String sectionTitle,
+    List options,
+    int upperFlex,
+    int middleFlex,
+    int lowerFlex = 0,
+    String pageType,
+  }) {
     var sections = Sections(this.context);
     var smallWidgets = SmallWidgets(this.context);
     double containerHeight;
@@ -35,7 +36,6 @@ class PageFormat {
     } else {
       containerMargin = EdgeInsets.symmetric(vertical: (this.fullHeight / 20));
     }
-    print(this.fullHeight);
 
     return SafeArea(
         child: Column(

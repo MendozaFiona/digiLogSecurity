@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';
 import 'package:digi_logsec/essentials/small_widgets.dart';
@@ -19,8 +20,11 @@ class Sections extends PageFormat {
     );
   }
 
-  Center middleSection(
-      {String title = 'Title Here', List options, String pageType}) {
+  Center middleSection({
+    String title = 'Title Here',
+    List options,
+    String pageType,
+  }) {
     double sectionMargin = 0;
 
     if (pageType == 'List') {
@@ -52,46 +56,7 @@ class Sections extends PageFormat {
                 if (pageType == 'Home') optionSection(optionList: options),
                 if (pageType == 'Form')
                   formSection(), // change to dynamic later
-                if (pageType == 'List')
-                  Column(
-                    children: [
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                      Text('Test Data'),
-                    ],
-                  ),
+                if (pageType == 'List') listSection(),
               ],
             ),
           )),
@@ -106,10 +71,42 @@ class Sections extends PageFormat {
     ]);
   }
 
+  Container listSection() {
+    // get map from db this is temporary
+    Map ongoingVisitList = {
+      'Test Name 1': 'Test Code 1',
+      'Test Name 2': 'Test Code 2',
+      'Test Name 3': 'Test Code 3'
+    };
+
+    var smallWidgets = SmallWidgets(super.context);
+
+    return Container(
+      padding: EdgeInsets.only(top: 15),
+      width: this.fullWidth / 1.5,
+      child: Column(
+        children: [
+          for (var ongoingVisitItem in ongoingVisitList.keys)
+            Column(
+              children: [
+                smallWidgets.visitTile(
+                    ongoingVisitItem, ongoingVisitList[ongoingVisitItem]),
+                SizedBox(
+                  height: 10,
+                )
+              ],
+            ),
+        ],
+      ),
+    );
+  }
+
   Column formSection() {
     Map txtFieldList;
     String formType = this.context.toString().split('(').first;
+
     var smallWidgets = SmallWidgets(super.context);
+
     final nameCtrlr = TextEditingController();
     // code field isn't required, it is automatically sent to db
     final contactCtrlr = TextEditingController();
