@@ -19,7 +19,13 @@ class _QRScanPageState extends ScanQRState {
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController controller;
   Barcode barcode;
-  int counter = 0;
+  bool alreadyPassed;
+
+  @override
+  initState() {
+    super.initState();
+    alreadyPassed = false;
+  }
 
   @override
   void dispose() {
@@ -28,19 +34,26 @@ class _QRScanPageState extends ScanQRState {
   }
 
   passResult() {
-    counter += 1;
-    //final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
-    if (barcode != null && counter >= 1) {
-      Future.delayed(Duration.zero, () {
-        Navigator.pushNamed(context, '/foot',
-            arguments: ScreenArguments(barcode.code));
-      });
+    if (barcode != null) {
+      if (alreadyPassed == false) {
+        alreadyPassed = true;
+        Future.delayed(Duration.zero, () async {
+          var nav = await Navigator.pushNamed(context, '/foot',
+              arguments: ScreenArguments(barcode.code));
+          print(nav);
+          if (nav == null) {
+            print('passed here');
+            alreadyPassed = false;
+          }
+        });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     passResult();
+    print(alreadyPassed);
 
     return Container(
       alignment: Alignment.center,

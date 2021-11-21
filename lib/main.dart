@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import 'essentials/page_format.dart';
+import 'essentials/pass_arguments.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -94,8 +95,10 @@ class OnFoot extends StatefulWidget {
 class _OnFootState extends State<OnFoot> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
     var onFoot = PageFormat(context);
 
+    print(args.code);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: onFoot.bodyFormat(
