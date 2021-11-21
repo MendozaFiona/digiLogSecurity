@@ -1,7 +1,5 @@
-import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'essentials/page_format.dart';
 
@@ -11,7 +9,6 @@ void main() {
     theme: ThemeData(scaffoldBackgroundColor: Color.fromRGBO(253, 180, 23, 1)),
     initialRoute: '/',
     routes: {
-      //'/': (context) => QRScanTest(),
       '/': (context) => Dashboard(),
       '/qr': (context) => ScanQR(),
       '/foot': (context) => OnFoot(),

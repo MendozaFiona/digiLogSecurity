@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:digi_logsec/essentials/pass_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/main.dart';
 
@@ -18,6 +19,7 @@ class _QRScanPageState extends ScanQRState {
   final qrKey = GlobalKey(debugLabel: 'QR');
   QRViewController controller;
   Barcode barcode;
+  int counter = 0;
 
   @override
   void dispose() {
@@ -25,9 +27,21 @@ class _QRScanPageState extends ScanQRState {
     super.dispose();
   }
 
+  passResult() {
+    counter += 1;
+    //final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+    if (barcode != null && counter >= 1) {
+      Future.delayed(Duration.zero, () {
+        Navigator.pushNamed(context, '/foot',
+            arguments: ScreenArguments(barcode.code));
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    print('passed Scanner');
+    passResult();
+
     return Container(
       alignment: Alignment.center,
       height: MediaQuery.of(this.context).size.height * 0.66,
@@ -49,10 +63,6 @@ class _QRScanPageState extends ScanQRState {
     controller.resumeCamera();
   }
 
-  /*passResul(){
-    barcode != null ?
-  }*/
-
   Widget buildQrView(BuildContext context) => QRView(
         key: qrKey,
         onQRViewCreated: onQRViewCreated,
@@ -70,7 +80,9 @@ class _QRScanPageState extends ScanQRState {
       this.controller = controller;
 
       controller.scannedDataStream.listen((barcode) {
-        this.barcode = barcode;
+        setState(() {
+          this.barcode = barcode;
+        });
       });
     });
   }
