@@ -1,6 +1,7 @@
 import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'essentials/page_format.dart';
 
@@ -10,6 +11,7 @@ void main() {
     theme: ThemeData(scaffoldBackgroundColor: Color.fromRGBO(253, 180, 23, 1)),
     initialRoute: '/',
     routes: {
+      //'/': (context) => QRScanTest(),
       '/': (context) => Dashboard(),
       '/qr': (context) => ScanQR(),
       '/foot': (context) => OnFoot(),
@@ -63,10 +65,10 @@ class ScanQR extends StatefulWidget {
   //const ScanQR({ Key? key }) : super(key: key);
 
   @override
-  _ScanQRState createState() => _ScanQRState();
+  ScanQRState createState() => ScanQRState();
 }
 
-class _ScanQRState extends State<ScanQR> {
+class ScanQRState extends State<ScanQR> {
   @override
   Widget build(BuildContext context) {
     var qrScan = PageFormat(context);

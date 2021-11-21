@@ -28,7 +28,7 @@ class PageFormat {
     EdgeInsets containerMargin;
     double upperPad = 40.0 / (upperFlex / 2);
 
-    if (pageType != 'Form') {
+    if (pageType != 'Form' || pageType != 'Scan') {
       containerHeight =
           (this.fullHeight / (upperFlex + middleFlex + lowerFlex)) *
                   middleFlex -
@@ -65,6 +65,7 @@ class PageFormat {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    if (pageType == 'Scan') QRScanPage(),
                     if (pageType == 'List')
                       Flexible(
                         child: Stack(
