@@ -95,10 +95,15 @@ class OnFoot extends StatefulWidget {
 class _OnFootState extends State<OnFoot> {
   @override
   Widget build(BuildContext context) {
+    var usercode;
     final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+
+    if (args != null) {
+      usercode = args.code.split(',').last;
+    }
+
     var onFoot = PageFormat(context);
 
-    print(args.code);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: onFoot.bodyFormat(
@@ -107,6 +112,7 @@ class _OnFootState extends State<OnFoot> {
         middleFlex: 11,
         pageType: 'Form',
         sectionTitle: "Visitor's Details",
+        extractedData: usercode,
       ),
     );
   }

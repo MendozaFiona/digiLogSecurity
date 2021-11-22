@@ -23,6 +23,7 @@ class Sections extends PageFormat {
     String title = 'Title Here',
     List options,
     String pageType,
+    var extractedData,
   }) {
     double sectionMargin = 0;
 
@@ -54,7 +55,8 @@ class Sections extends PageFormat {
                     )),
                 if (pageType == 'Home') optionSection(optionList: options),
                 if (pageType == 'Form')
-                  formSection(), // change to dynamic later
+                  formSection(
+                      extractedData: extractedData), // change to dynamic later
                 if (pageType == 'List') listSection(),
               ],
             ),
@@ -100,13 +102,13 @@ class Sections extends PageFormat {
     );
   }
 
-  Column formSection() {
+  Column formSection({var extractedData}) {
     Map txtFieldList;
     String formType = this.context.toString().split('(').first;
 
     var smallWidgets = SmallWidgets(super.context);
 
-    final nameCtrlr = TextEditingController();
+    final nameCtrlr = TextEditingController(text: extractedData);
     // code field isn't required, it is automatically sent to db
     final contactCtrlr = TextEditingController();
     final vehicleTypeCtrlr = TextEditingController();

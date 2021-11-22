@@ -21,6 +21,7 @@ class PageFormat {
     int middleFlex,
     int lowerFlex = 0,
     String pageType,
+    var extractedData,
   }) {
     var sections = Sections(this.context);
     var smallWidgets = SmallWidgets(this.context);
@@ -81,6 +82,7 @@ class PageFormat {
                         title: sectionTitle,
                         options: options,
                         pageType: pageType,
+                        extractedData: extractedData,
                       ),
                     if (pageType == 'Form') sections.formBottomSection(),
                   ]),

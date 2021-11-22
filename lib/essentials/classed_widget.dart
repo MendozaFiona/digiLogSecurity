@@ -40,9 +40,8 @@ class _QRScanPageState extends ScanQRState {
         Future.delayed(Duration.zero, () async {
           var nav = await Navigator.pushNamed(context, '/foot',
               arguments: ScreenArguments(barcode.code));
-          print(nav);
+
           if (nav == null) {
-            print('passed here');
             alreadyPassed = false;
           }
         });
@@ -53,7 +52,6 @@ class _QRScanPageState extends ScanQRState {
   @override
   Widget build(BuildContext context) {
     passResult();
-    print(alreadyPassed);
 
     return Container(
       alignment: Alignment.center,
