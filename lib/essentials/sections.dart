@@ -26,41 +26,54 @@ class Sections extends PageFormat {
     var extractedData,
   }) {
     double sectionMargin = 0;
+    double sectionHeight;
+    String formType = this.context.toString().split('(').first;
 
     if (pageType == 'List') {
       sectionMargin = 70;
     }
 
+    if (formType == 'WithVehicle') {
+      sectionHeight = fullHeight * 0.6;
+    }
+
     return Center(
-      child: Container(
-          margin: EdgeInsets.symmetric(vertical: sectionMargin),
-          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(255, 255, 255, 0.15),
-            border: Border.all(
-              color: Colors.white,
-            ),
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-          ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(title,
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontFamily: 'Nunito',
-                    )),
-                if (pageType == 'Home') optionSection(optionList: options),
-                if (pageType == 'Form')
-                  formSection(
-                      extractedData: extractedData), // change to dynamic later
-                if (pageType == 'List') listSection(),
-              ],
-            ),
-          )),
+      child: Column(
+        children: [
+          Container(
+              height: sectionHeight,
+              margin: EdgeInsets.only(top: sectionMargin),
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(255, 255, 255, 0.15),
+                border: Border.all(
+                  color: Colors.white,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(title,
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          fontFamily: 'Nunito',
+                        )),
+                    if (pageType == 'Home') optionSection(optionList: options),
+                    if (pageType == 'Form')
+                      formSection(
+                          extractedData: extractedData,
+                          formType: formType), // change to dynamic later
+                    if (pageType == 'List') listSection(),
+                  ],
+                ),
+              )),
+          if (pageType == 'Form') this.formBottomSection(),
+        ],
+      ),
     );
   }
 
@@ -102,11 +115,8 @@ class Sections extends PageFormat {
     );
   }
 
-  Column formSection({var extractedData}) {
+  Column formSection({var extractedData, String formType}) {
     Map txtFieldList;
-    String formType = this.context.toString().split('(').first;
-
-    var smallWidgets = SmallWidgets(super.context);
 
     final nameCtrlr = TextEditingController(text: extractedData);
     // code field isn't required, it is automatically sent to db
@@ -141,7 +151,6 @@ class Sections extends PageFormat {
         SizedBox(
           height: 10,
         ),
-        smallWidgets.optionsBtn('ENTER', buttonType: 'blue'),
       ],
     );
   }
@@ -154,9 +163,9 @@ class Sections extends PageFormat {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            smallWidgets.optionsBtn('Back',
-                buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),
             smallWidgets.optionsBtn('OCR',
+                buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),
+            smallWidgets.optionsBtn('Enter',
                 buttonType: 'blue', circBorder: 40.0, buttonWidth: 100)
           ],
         ));

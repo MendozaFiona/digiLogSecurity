@@ -84,7 +84,6 @@ class PageFormat {
                         pageType: pageType,
                         extractedData: extractedData,
                       ),
-                    if (pageType == 'Form') sections.formBottomSection(),
                   ]),
             ),
           ),

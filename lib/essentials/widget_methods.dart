@@ -37,10 +37,8 @@ class WidgetMethods extends PageFormat {
         }
         break;
 
-      case "Back":
-        {
-          Navigator.pop(this.context);
-        }
+      case "Enter":
+        {}
         break;
 
       default:
