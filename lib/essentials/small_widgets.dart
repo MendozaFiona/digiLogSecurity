@@ -7,8 +7,13 @@ import 'package:flutter/services.dart';
 class SmallWidgets extends PageFormat {
   SmallWidgets(BuildContext context) : super(context);
 
-  ElevatedButton optionsBtn(String option,
-      {String buttonType, double circBorder = 0.0, double buttonWidth = 150}) {
+  ElevatedButton optionsBtn(
+    String option, {
+    String buttonType,
+    double circBorder = 0.0,
+    double buttonWidth = 150,
+    /*List controllerList*/
+  }) {
     var widgetMethods = WidgetMethods(super.context);
     Color btnColor = Color.fromRGBO(243, 233, 211, 1);
     Color fontColor = Colors.black;
@@ -27,6 +32,11 @@ class SmallWidgets extends PageFormat {
     return ElevatedButton(
       onPressed: () {
         widgetMethods.optionResponse(response: option);
+        /*if (controllerList != null) {
+          for (var controller in controllerList) {
+            controller.dispose();
+          }
+        }*/ // delete if not needed
       },
       child: Text(option,
           style: TextStyle(
@@ -78,6 +88,7 @@ class SmallWidgets extends PageFormat {
     double fieldHeight = 40;
     int length = 40;
     int lines = 1;
+    var exp = RegExp(r"^[a-z A-Z,.\-]+$");
 
     if (label == 'Purpose') {
       fieldHeight = 80;
@@ -86,6 +97,7 @@ class SmallWidgets extends PageFormat {
     } else if (label == 'Contact Number') {
       fieldType = TextInputType.phone;
       length = 11;
+      exp = RegExp(r"^[0-9]*$");
     }
 
     return Column(
@@ -102,6 +114,9 @@ class SmallWidgets extends PageFormat {
           width: 240,
           height: fieldHeight,
           child: TextFormField(
+            validator: WidgetMethods.validateForm(
+              inputExp: exp,
+            ),
             controller: fieldController,
             textAlign: TextAlign.center,
             keyboardType: fieldType,

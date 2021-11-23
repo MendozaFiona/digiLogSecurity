@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import 'essentials/page_format.dart';
@@ -20,20 +22,6 @@ void main() {
   ));
 }
 
-class LoginPage extends StatefulWidget {
-  //const LoginPage({ Key? key }) : super(key: key);
-
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
 class Dashboard extends StatelessWidget {
   //const Dashboard({ Key? key }) : super(key: key);
 
@@ -44,7 +32,7 @@ class Dashboard extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: dashboard.bodyFormat(
-        name: 'Firstname M. Surname',
+        name: 'USTP Digital Logbook',
         sectionTitle: 'Add Visitors',
         options: [
           'On Foot',
@@ -73,8 +61,8 @@ class ScanQRState extends State<ScanQR> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: qrScan.bodyFormat(
-        name: 'Firstname M. Surname',
+      body: qrScan.scanFormat(
+        name: 'QR Code Scan',
         options: ['Manual Input'],
         upperFlex: 3,
         middleFlex: 11,
@@ -107,7 +95,7 @@ class _OnFootState extends State<OnFoot> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: onFoot.bodyFormat(
-        name: 'Firstname M. Surname',
+        name: 'Visitor On Foot',
         upperFlex: 3,
         middleFlex: 11,
         pageType: 'Form',
@@ -133,7 +121,7 @@ class WithVehicleState extends State<WithVehicle> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: withVehicle.bodyFormat(
-        name: 'Firstname M. Surname',
+        name: 'Visitor with Vehicle',
         upperFlex: 3,
         middleFlex: 11,
         pageType: 'Form',
@@ -157,9 +145,9 @@ class _ScanOCRState extends State<ScanOCR> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: ocrScan.bodyFormat(
-        name: 'Firstname M. Surname',
-        options: ['Back'],
+      body: ocrScan.scanFormat(
+        name: 'OCR Scan',
+        options: ['Scan'],
         upperFlex: 3,
         middleFlex: 11,
         lowerFlex: 2,
@@ -183,15 +171,17 @@ class OngoingVisitsState extends State<OngoingVisits> {
   @override
   Widget build(BuildContext context) {
     var ongoingVisit = PageFormat(context);
+    DateTime now = new DateTime.now();
+    String dateToday = DateFormat("MMMM d, y").format(now);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: ongoingVisit.bodyFormat(
-        name: 'Firstname M. Surname',
+        name: 'Ongoing Visits',
         upperFlex: 3,
         middleFlex: 13,
         pageType: 'List',
-        sectionTitle: "Ongoing Visits",
+        sectionTitle: dateToday,
       ),
     );
   }

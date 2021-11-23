@@ -4,14 +4,23 @@ import 'package:digi_logsec/essentials/small_widgets.dart';
 
 class Sections extends PageFormat {
   Sections(BuildContext context) : super(context);
+  List controllers;
 
-  static Align upperSection({String name, int flex}) {
+  List getControllers() {
+    return controllers;
+  }
+
+  static Align upperSection({String name, int flex, double fSize}) {
+    if (fSize == null) {
+      fSize = 55 / (flex / 2);
+    }
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Text(name,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: 55 / (flex / 2),
+            fontSize: fSize,
             fontWeight: FontWeight.bold,
             color: Colors.white,
             fontFamily: 'Nunito',
@@ -29,16 +38,13 @@ class Sections extends PageFormat {
     double sectionHeight;
     String formType = this.context.toString().split('(').first;
 
-    if (pageType == 'List') {
-      sectionMargin = 70;
-    }
-
     if (formType == 'WithVehicle') {
       sectionHeight = fullHeight * 0.6;
     }
 
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
               height: sectionHeight,
@@ -125,29 +131,28 @@ class Sections extends PageFormat {
     final plateNumCtrlr = TextEditingController();
     final purposeCtrlr = TextEditingController();
 
-    if (formType == 'OnFoot') {
-      txtFieldList = {
-        nameCtrlr: 'Name',
-        contactCtrlr: 'Contact Number',
-        purposeCtrlr: 'Purpose'
-      };
-    }
+    List ctrlrList = [
+      nameCtrlr,
+      contactCtrlr,
+      vehicleTypeCtrlr,
+      plateNumCtrlr,
+      purposeCtrlr
+    ];
 
-    if (formType == 'WithVehicle') {
-      txtFieldList = {
-        nameCtrlr: 'Name',
-        contactCtrlr: 'Contact Number',
-        vehicleTypeCtrlr: 'Type of Vehicle',
-        plateNumCtrlr: 'Plate Number',
-        purposeCtrlr: 'Purpose'
-      };
-    }
+    this.controllers = ctrlrList;
 
     return Column(
       children: [
-        for (var txtField in txtFieldList.keys)
+        SmallWidgets.formField(fieldController: nameCtrlr, label: 'Name'),
+        SmallWidgets.formField(
+            fieldController: contactCtrlr, label: 'Contact Number'),
+        if (formType == 'WithVehicle')
           SmallWidgets.formField(
-              fieldController: txtField, label: txtFieldList[txtField]),
+              fieldController: vehicleTypeCtrlr, label: 'Vehicle Type'),
+        if (formType == 'WithVehicle')
+          SmallWidgets.formField(
+              fieldController: plateNumCtrlr, label: 'Plate Number'),
+        SmallWidgets.formField(fieldController: purposeCtrlr, label: 'Purpose'),
         SizedBox(
           height: 10,
         ),
@@ -156,15 +161,17 @@ class Sections extends PageFormat {
   }
 
   Container formBottomSection() {
+    //List ctrlrList = get
     var smallWidgets = SmallWidgets(super.context);
     return Container(
         padding: EdgeInsets.only(top: 40.0),
         width: super.fullWidth / 1.5,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment
+              .center, // should be spaceBetween if have OCR btn
           children: [
-            smallWidgets.optionsBtn('OCR',
-                buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),
+            /*smallWidgets.optionsBtn('OCR',
+                buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),*/ //return when done with other functions!!!
             smallWidgets.optionsBtn('Enter',
                 buttonType: 'blue', circBorder: 40.0, buttonWidth: 100)
           ],

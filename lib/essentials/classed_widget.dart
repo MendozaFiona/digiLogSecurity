@@ -55,7 +55,7 @@ class _QRScanPageState extends ScanQRState {
 
     return Container(
       alignment: Alignment.center,
-      height: MediaQuery.of(this.context).size.height * 0.66,
+      height: MediaQuery.of(this.context).size.height * 0.9,
       child: Stack(
         children: [
           buildQrView(context),
@@ -108,6 +108,8 @@ class _VisitSearchState extends OngoingVisitsState {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width * 0.95,
+      margin: EdgeInsets.only(top: 15),
       child: FloatingSearchBar(
         controller: visitSearchController,
         hint: 'Search',

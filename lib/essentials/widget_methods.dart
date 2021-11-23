@@ -4,6 +4,18 @@ import 'package:digi_logsec/essentials/page_format.dart';
 class WidgetMethods extends PageFormat {
   WidgetMethods(BuildContext context) : super(context);
 
+  static validateForm({inputExp, String errResponse = "Invalid Input"}) {
+    return (value) {
+      if (value.isEmpty) {
+        return "This field is required";
+      } else if (inputExp.hasMatch(value) == false) {
+        return errResponse;
+      }
+
+      return null;
+    };
+  }
+
   optionResponse({String response}) {
     switch (response) {
       case "On Foot":
@@ -38,7 +50,9 @@ class WidgetMethods extends PageFormat {
         break;
 
       case "Enter":
-        {}
+        {
+          //Navigator.pop(this.context, true); // for testing only
+        }
         break;
 
       default:

@@ -29,7 +29,7 @@ class PageFormat {
     EdgeInsets containerMargin;
     double upperPad = 40.0 / (upperFlex / 2);
 
-    if (pageType != 'Form' || pageType != 'Scan') {
+    if (pageType != 'Form') {
       containerHeight =
           (this.fullHeight / (upperFlex + middleFlex + lowerFlex)) *
                   middleFlex -
@@ -66,12 +66,16 @@ class PageFormat {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (pageType == 'Scan') QRScanPage(),
                     if (pageType == 'List')
                       Flexible(
                         child: Stack(
                           children: [
-                            VisitSearch(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                VisitSearch(),
+                              ],
+                            ),
                             sections.middleSection(
                                 title: sectionTitle, pageType: pageType),
                           ],
@@ -92,9 +96,63 @@ class PageFormat {
             flex: lowerFlex,
             child: Column(children: [
               if (pageType == 'Home') smallWidgets.optionsBtn('Ongoing Visits'),
-              if (pageType == 'Scan')
-                Expanded(child: sections.lowerSection(option: options)),
             ]))
+      ],
+    ));
+  }
+
+  SafeArea scanFormat({
+    String name,
+    String sectionTitle,
+    List options,
+    String pageType,
+    int upperFlex,
+    int middleFlex,
+    int lowerFlex = 0,
+    var extractedData,
+  }) {
+    var sections = Sections(this.context);
+    var proportion = this.fullHeight / (upperFlex + middleFlex + lowerFlex);
+    double upperPad = 40.0 / (upperFlex / 2);
+
+    return SafeArea(
+        child: Stack(
+      children: [
+        Positioned(
+          top: proportion * upperFlex,
+          child: Expanded(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              QRScanPage(),
+            ],
+          )),
+        ),
+        Positioned(
+            top: 0,
+            height: proportion * upperFlex,
+            width: fullWidth,
+            child: Container(
+              padding: EdgeInsets.only(bottom: upperPad),
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(25, 24, 81, 1),
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(50)),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Flexible(
+                      child:
+                          Sections.upperSection(name: name, flex: upperFlex)),
+                ],
+              ),
+            )),
+        Positioned(
+          bottom: 0,
+          height: proportion * lowerFlex,
+          child: Container(child: sections.lowerSection(option: options)),
+        ),
       ],
     ));
   }
