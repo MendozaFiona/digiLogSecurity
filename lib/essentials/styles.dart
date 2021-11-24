@@ -30,6 +30,7 @@ class Styles extends PageFormat {
     }
     return InputDecoration(
       hintText: label,
+      helperText: '',
       //enabled: enableField,
       filled: true,
       fillColor: Colors.white,

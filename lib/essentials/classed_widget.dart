@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:digi_logsec/essentials/pass_arguments.dart';
-import 'package:digi_logsec/essentials/small_widgets.dart';
+import 'package:digi_logsec/essentials/sections.dart';
 import 'package:digi_logsec/essentials/styles.dart';
 import 'package:digi_logsec/essentials/widget_methods.dart';
 import 'package:flutter/material.dart';
@@ -39,27 +39,33 @@ class _FormSectionState extends State<FormSection> {
       purposeCtrlr
     ];
 
-    //this.controllers = ctrlrList;
+    var sections = Sections(context);
 
-    return Column(
-      children: [
-        CustomFormField(
-          fieldController: nameCtrlr,
-          label: 'Name',
-          extractedData: widget.extractedData,
-        ),
-        CustomFormField(fieldController: contactCtrlr, label: 'Contact Number'),
-        if (widget.formType == 'WithVehicle')
+    final formKey = sections.getKey();
+
+    return Form(
+      key: formKey,
+      child: Column(
+        children: [
           CustomFormField(
-              fieldController: vehicleTypeCtrlr, label: 'Vehicle Type'),
-        if (widget.formType == 'WithVehicle')
+            fieldController: nameCtrlr,
+            label: 'Name',
+            extractedData: widget.extractedData,
+          ),
           CustomFormField(
-              fieldController: plateNumCtrlr, label: 'Plate Number'),
-        CustomFormField(fieldController: purposeCtrlr, label: 'Purpose'),
-        SizedBox(
-          height: 10,
-        ),
-      ],
+              fieldController: contactCtrlr, label: 'Contact Number'),
+          if (widget.formType == 'WithVehicle')
+            CustomFormField(
+                fieldController: vehicleTypeCtrlr, label: 'Vehicle Type'),
+          if (widget.formType == 'WithVehicle')
+            CustomFormField(
+                fieldController: plateNumCtrlr, label: 'Plate Number'),
+          CustomFormField(fieldController: purposeCtrlr, label: 'Purpose'),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
     );
   }
 }
@@ -88,13 +94,13 @@ class _CustomFormFieldState extends State<CustomFormField> {
       }
     });
     TextInputType fieldType = TextInputType.text;
-    double fieldHeight = 40;
+    double fieldHeight = 60;
     int length = 40;
     int lines = 1;
     var exp = RegExp(r"^[a-z A-Z,.\-]+$");
 
     if (widget.label == 'Purpose') {
-      fieldHeight = 80;
+      fieldHeight = 100;
       length = 100;
       lines = 2;
     } else if (widget.label == 'Contact Number') {
@@ -105,9 +111,6 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
     return Column(
       children: [
-        SizedBox(
-          height: 10,
-        ),
         Container(
             width: 230,
             height: 20,

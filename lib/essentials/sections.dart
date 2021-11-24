@@ -6,9 +6,10 @@ import 'package:digi_logsec/essentials/small_widgets.dart';
 class Sections extends PageFormat {
   Sections(BuildContext context) : super(context);
   List controllers;
+  static final _formKey = GlobalKey<FormState>();
 
-  List getControllers() {
-    return controllers;
+  getKey() {
+    return _formKey;
   }
 
   static Align upperSection({String name, int flex, double fSize}) {
@@ -72,8 +73,9 @@ class Sections extends PageFormat {
                     if (pageType == 'Home') optionSection(optionList: options),
                     if (pageType == 'Form')
                       FormSection(
-                          extractedData: extractedData,
-                          formType: formType), // change to dynamic later
+                        extractedData: extractedData,
+                        formType: formType,
+                      ), // change to dynamic later
                     if (pageType == 'List') listSection(),
                   ],
                 ),
@@ -134,8 +136,12 @@ class Sections extends PageFormat {
           children: [
             /*smallWidgets.optionsBtn('OCR',
                 buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),*/ //return when done with other functions!!!
-            smallWidgets.optionsBtn('Enter',
-                buttonType: 'blue', circBorder: 40.0, buttonWidth: 100)
+            smallWidgets.optionsBtn(
+              'Enter',
+              buttonType: 'blue',
+              circBorder: 40.0,
+              buttonWidth: 100,
+            )
           ],
         ));
   }
