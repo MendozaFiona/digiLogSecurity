@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';
 import 'package:digi_logsec/essentials/small_widgets.dart';
@@ -70,7 +71,7 @@ class Sections extends PageFormat {
                         )),
                     if (pageType == 'Home') optionSection(optionList: options),
                     if (pageType == 'Form')
-                      formSection(
+                      FormSection(
                           extractedData: extractedData,
                           formType: formType), // change to dynamic later
                     if (pageType == 'List') listSection(),
@@ -118,45 +119,6 @@ class Sections extends PageFormat {
             ),
         ],
       ),
-    );
-  }
-
-  Column formSection({var extractedData, String formType}) {
-    Map txtFieldList;
-
-    final nameCtrlr = TextEditingController(text: extractedData);
-    // code field isn't required, it is automatically sent to db
-    final contactCtrlr = TextEditingController();
-    final vehicleTypeCtrlr = TextEditingController();
-    final plateNumCtrlr = TextEditingController();
-    final purposeCtrlr = TextEditingController();
-
-    List ctrlrList = [
-      nameCtrlr,
-      contactCtrlr,
-      vehicleTypeCtrlr,
-      plateNumCtrlr,
-      purposeCtrlr
-    ];
-
-    this.controllers = ctrlrList;
-
-    return Column(
-      children: [
-        SmallWidgets.formField(fieldController: nameCtrlr, label: 'Name'),
-        SmallWidgets.formField(
-            fieldController: contactCtrlr, label: 'Contact Number'),
-        if (formType == 'WithVehicle')
-          SmallWidgets.formField(
-              fieldController: vehicleTypeCtrlr, label: 'Vehicle Type'),
-        if (formType == 'WithVehicle')
-          SmallWidgets.formField(
-              fieldController: plateNumCtrlr, label: 'Plate Number'),
-        SmallWidgets.formField(fieldController: purposeCtrlr, label: 'Purpose'),
-        SizedBox(
-          height: 10,
-        ),
-      ],
     );
   }
 
