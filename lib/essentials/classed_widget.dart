@@ -29,27 +29,25 @@ class _FormSectionState extends State<FormSection> {
   final plateNumCtrlr = TextEditingController();
   final purposeCtrlr = TextEditingController();
 
-  List ctrlrList;
-
-  getControllers() {
-    return ctrlrList;
+  check() {
+    nameCtrlr.dispose();
+    contactCtrlr.dispose();
+    vehicleTypeCtrlr.dispose();
+    plateNumCtrlr.dispose();
+    purposeCtrlr.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      ctrlrList = [
-        nameCtrlr,
-        contactCtrlr,
-        vehicleTypeCtrlr,
-        plateNumCtrlr,
-        purposeCtrlr
-      ];
-    });
-
     var sections = Sections(context);
 
     final formKey = sections.getKey();
+
+    @override
+    void dispose() {
+      check();
+      super.dispose();
+    }
 
     return Form(
       key: formKey,
@@ -72,6 +70,12 @@ class _FormSectionState extends State<FormSection> {
           SizedBox(
             height: 10,
           ),
+          sections.formBottomSection(
+              name: nameCtrlr,
+              contact: contactCtrlr,
+              vtype: vehicleTypeCtrlr,
+              pnum: plateNumCtrlr,
+              purpose: purposeCtrlr)
         ],
       ),
     );

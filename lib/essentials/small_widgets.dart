@@ -6,12 +6,15 @@ import 'package:digi_logsec/essentials/styles.dart';
 class SmallWidgets extends PageFormat {
   SmallWidgets(BuildContext context) : super(context);
 
-  ElevatedButton optionsBtn(
-    String option, {
-    String buttonType,
-    double circBorder = 0.0,
-    double buttonWidth = 150,
-  }) {
+  ElevatedButton optionsBtn(String option,
+      {String buttonType,
+      double circBorder = 0.0,
+      double buttonWidth = 150,
+      name,
+      contact,
+      vtype,
+      pnum,
+      purpose}) {
     var widgetMethods = WidgetMethods(super.context);
     Color btnColor = Color.fromRGBO(243, 233, 211, 1);
     Color fontColor = Colors.black;
@@ -29,12 +32,17 @@ class SmallWidgets extends PageFormat {
 
     return ElevatedButton(
       onPressed: () {
-        widgetMethods.optionResponse(response: option);
-        /*if (controllerList != null) {
-          for (var controller in controllerList) {
-            controller.dispose();
-          }
-        }*/ // delete if not needed
+        if (name != null) {
+          widgetMethods.optionResponse(
+              response: option,
+              name: name,
+              contact: contact,
+              vtype: vtype,
+              pnum: pnum,
+              purpose: purpose);
+        } else {
+          widgetMethods.optionResponse(response: option);
+        }
       },
       child: Text(option,
           style: TextStyle(

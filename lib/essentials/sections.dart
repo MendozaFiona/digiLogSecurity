@@ -79,7 +79,6 @@ class Sections extends PageFormat {
                   ],
                 ),
               )),
-          if (pageType == 'Form') this.formBottomSection(),
         ],
       ),
     );
@@ -123,11 +122,10 @@ class Sections extends PageFormat {
     );
   }
 
-  Container formBottomSection() {
-    //List ctrlrList = get
+  Container formBottomSection({name, contact, vtype, pnum, purpose}) {
     var smallWidgets = SmallWidgets(super.context);
+
     return Container(
-        padding: EdgeInsets.only(top: 40.0),
         width: super.fullWidth / 1.5,
         child: Row(
           mainAxisAlignment: MainAxisAlignment
@@ -135,12 +133,15 @@ class Sections extends PageFormat {
           children: [
             /*smallWidgets.optionsBtn('OCR',
                 buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),*/ //return when done with other functions!!!
-            smallWidgets.optionsBtn(
-              'Enter',
-              buttonType: 'blue',
-              circBorder: 40.0,
-              buttonWidth: 100,
-            )
+            smallWidgets.optionsBtn('Enter',
+                buttonType: 'blue',
+                circBorder: 40.0,
+                buttonWidth: 100,
+                name: name,
+                contact: contact,
+                vtype: vtype,
+                pnum: pnum,
+                purpose: purpose)
           ],
         ));
   }

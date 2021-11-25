@@ -1,27 +1,29 @@
-import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:digi_logsec/essentials/sections.dart';
+import 'package:digi_logsec/services/visitor_service.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';
 
 class WidgetMethods extends PageFormat {
   WidgetMethods(BuildContext context) : super(context);
 
-  _register({List controllerList}) async {
+  _register({name, contact, vtype, pnum, purpose}) async {
     var sections = Sections(super.context);
-
     var formKey = sections.getKey();
 
     if (formKey.currentState.validate()) {
-      /*Map _userData = {
-        'fname': fnameTxtController.text,
-        'lname': lnameTxtController.text,
-        'username': usernameTxtController.text,
-        'email': emailTxtController.text,
-        'password': passTxtController.text,
-      };*/
+      Map _visitorData = {
+        'name': name.text,
+        'contact': contact.text,
+        'purpose': purpose.text,
+      };
 
-      /*try {
-        var res = await addUser(_userData);
+      if (pnum.text != '') {
+        _visitorData['vtype'] = vtype.text;
+        _visitorData['pnum'] = pnum.text;
+      }
+
+      try {
+        var res = await addVisitor(_visitorData);
 
         if (res.message != "Cannot process request. Input errors.") {
           ScaffoldMessenger.of(context)
@@ -42,7 +44,7 @@ class WidgetMethods extends PageFormat {
           "${error.message}",
           style: TextStyle(color: Color.fromRGBO(239, 224, 187, 1)),
         )));
-      }*/
+      }
     }
   }
 
@@ -58,7 +60,8 @@ class WidgetMethods extends PageFormat {
     };
   }
 
-  optionResponse({String response, key, method}) {
+  optionResponse(
+      {String response, key, method, name, contact, vtype, pnum, purpose}) {
     switch (response) {
       case "On Foot":
         {
@@ -93,7 +96,12 @@ class WidgetMethods extends PageFormat {
 
       case "Enter":
         {
-          this._register();
+          this._register(
+              name: name,
+              contact: contact,
+              vtype: vtype,
+              pnum: pnum,
+              purpose: purpose);
           //Navigator.pop(this.context, true); // for testing only
         }
         break;
