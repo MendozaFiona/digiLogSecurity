@@ -29,15 +29,23 @@ class _FormSectionState extends State<FormSection> {
   final plateNumCtrlr = TextEditingController();
   final purposeCtrlr = TextEditingController();
 
+  List ctrlrList;
+
+  getControllers() {
+    return ctrlrList;
+  }
+
   @override
   Widget build(BuildContext context) {
-    List ctrlrList = [
-      nameCtrlr,
-      contactCtrlr,
-      vehicleTypeCtrlr,
-      plateNumCtrlr,
-      purposeCtrlr
-    ];
+    setState(() {
+      ctrlrList = [
+        nameCtrlr,
+        contactCtrlr,
+        vehicleTypeCtrlr,
+        plateNumCtrlr,
+        purposeCtrlr
+      ];
+    });
 
     var sections = Sections(context);
 

@@ -5,7 +5,6 @@ import 'package:digi_logsec/essentials/small_widgets.dart';
 
 class Sections extends PageFormat {
   Sections(BuildContext context) : super(context);
-  List controllers;
   static final _formKey = GlobalKey<FormState>();
 
   getKey() {

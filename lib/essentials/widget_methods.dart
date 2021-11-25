@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/classed_widget.dart';
 import 'package:digi_logsec/essentials/sections.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';

@@ -11,7 +11,6 @@ class SmallWidgets extends PageFormat {
     String buttonType,
     double circBorder = 0.0,
     double buttonWidth = 150,
-    /*List controllerList*/
   }) {
     var widgetMethods = WidgetMethods(super.context);
     Color btnColor = Color.fromRGBO(243, 233, 211, 1);
