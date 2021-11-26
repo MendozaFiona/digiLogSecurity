@@ -1,4 +1,4 @@
-import 'package:digi_logsec/essentials/classed_widget.dart';
+import 'package:digi_logsec/essentials/classed_adding.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';
 import 'package:digi_logsec/essentials/small_widgets.dart';

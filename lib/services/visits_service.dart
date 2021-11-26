@@ -4,7 +4,7 @@ import 'dart:async';
 import '../json_models/get_visitor.dart';
 import 'config.dart';
 
-Future<EntryInfo> discoverEntry() async {
+Future<EntryInfo> getEntry() async {
   var response =
       await http.get(Uri.parse('$API_URL/visit_entries')); // changeURI
 
