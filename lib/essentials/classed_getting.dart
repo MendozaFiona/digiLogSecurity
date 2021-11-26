@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/small_widgets.dart';
 import 'package:digi_logsec/json_models/get_visitor.dart';
 import 'package:digi_logsec/services/visits_service.dart';
 import 'package:flutter/material.dart';
@@ -5,14 +6,14 @@ import 'package:digi_logsec/main.dart';
 
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
-class DiscoverBody extends StatefulWidget {
+class RetrieveVisit extends StatefulWidget {
   @override
-  DiscoverBodyState createState() {
-    return DiscoverBodyState();
+  RetrieveVisitState createState() {
+    return RetrieveVisitState();
   }
 }
 
-class DiscoverBodyState extends State<DiscoverBody> {
+class RetrieveVisitState extends State<RetrieveVisit> {
 //NEED TO REFRESH
   Future<EntryInfo> futureData;
 
@@ -26,6 +27,8 @@ class DiscoverBodyState extends State<DiscoverBody> {
 
   @override
   Widget build(BuildContext context) {
+    var smallWidgets = SmallWidgets(context);
+
     return Center(
         child: FutureBuilder<EntryInfo>(
             future: futureData,
@@ -34,8 +37,11 @@ class DiscoverBodyState extends State<DiscoverBody> {
                 visitData['id'] = snapshot.data.id;
                 visitData['name'] = snapshot.data.name;
 
+                print(snapshot.data);
+
                 return Column(
                   children: [
+                    smallWidgets.visitTile(visitData['name'], visitData['id']),
                     /*TitleBox(defaultTitle: visitData['id']),
                     DiscoverEntry(
                       visitData: visitData,
