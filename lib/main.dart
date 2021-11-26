@@ -57,6 +57,7 @@ class ScanQR extends StatefulWidget {
 class ScanQRState extends State<ScanQR> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
     var qrScan = PageFormat(context);
 
     return Scaffold(
@@ -68,6 +69,7 @@ class ScanQRState extends State<ScanQR> {
         middleFlex: 11,
         lowerFlex: 2,
         pageType: 'Scan',
+        formType: args.formType,
       ),
     );
   }
@@ -116,6 +118,13 @@ class WithVehicle extends StatefulWidget {
 class WithVehicleState extends State<WithVehicle> {
   @override
   Widget build(BuildContext context) {
+    var usercode;
+    final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
+
+    if (args != null) {
+      usercode = args.code.split(',').last;
+    }
+
     var withVehicle = PageFormat(context);
 
     return Scaffold(

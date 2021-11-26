@@ -1,3 +1,4 @@
+import 'package:digi_logsec/essentials/pass_arguments.dart';
 import 'package:digi_logsec/essentials/sections.dart';
 import 'package:digi_logsec/services/visitor_service.dart';
 import 'package:flutter/material.dart';
@@ -61,24 +62,38 @@ class WidgetMethods extends PageFormat {
   }
 
   optionResponse(
-      {String response, key, method, name, contact, vtype, pnum, purpose}) {
+      {String response,
+      String formType,
+      key,
+      method,
+      name,
+      contact,
+      vtype,
+      pnum,
+      purpose}) {
     switch (response) {
       case "On Foot":
         {
-          Navigator.pushNamed(this.context, '/qr');
-          //Navigator.pushNamed(context, '/foot');
+          Navigator.pushNamed(this.context, '/qr',
+              arguments: ScreenArguments(formType: 'OnFoot'));
         }
         break;
 
       case "Manual Input":
         {
-          Navigator.pushNamed(this.context, '/foot'); // temporary
+          print(formType);
+          if (formType == 'WithVehicle') {
+            Navigator.pushNamed(this.context, '/vehicle');
+          } else {
+            Navigator.pushNamed(this.context, '/foot');
+          }
         }
         break;
 
       case "With Vehicle":
         {
-          Navigator.pushNamed(this.context, '/vehicle');
+          Navigator.pushNamed(this.context, '/qr',
+              arguments: ScreenArguments(formType: 'WithVehicle'));
         }
         break;
 

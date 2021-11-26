@@ -183,7 +183,7 @@ class _QRScanPageState extends ScanQRState {
         alreadyPassed = true;
         Future.delayed(Duration.zero, () async {
           var nav = await Navigator.pushNamed(context, '/foot',
-              arguments: ScreenArguments(barcode.code));
+              arguments: ScreenArguments(code: barcode.code));
 
           if (nav == null) {
             alreadyPassed = false;
@@ -198,14 +198,9 @@ class _QRScanPageState extends ScanQRState {
     passResult();
 
     return Container(
-      alignment: Alignment.center,
-      height: MediaQuery.of(this.context).size.height * 0.9,
-      child: Stack(
-        children: [
-          buildQrView(context),
-        ],
-      ),
-    );
+        alignment: Alignment.center,
+        height: MediaQuery.of(this.context).size.height * 0.9,
+        child: buildQrView(context));
   }
 
   @override

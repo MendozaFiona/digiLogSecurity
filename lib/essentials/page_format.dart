@@ -109,6 +109,7 @@ class PageFormat {
     int upperFlex,
     int middleFlex,
     int lowerFlex = 0,
+    String formType,
     var extractedData,
   }) {
     var sections = Sections(this.context);
@@ -118,15 +119,13 @@ class PageFormat {
     return SafeArea(
         child: Stack(
       children: [
-        Positioned(
-          top: proportion * upperFlex,
-          child: Expanded(
-              child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              QRScanPage(),
-            ],
-          )),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: QRScanPage(),
+            ),
+          ],
         ),
         Positioned(
             top: 0,
@@ -151,7 +150,9 @@ class PageFormat {
         Positioned(
           bottom: 0,
           height: proportion * lowerFlex,
-          child: Container(child: sections.lowerSection(option: options)),
+          child: Container(
+              child:
+                  sections.lowerSection(option: options, formType: formType)),
         ),
       ],
     ));

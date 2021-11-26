@@ -146,8 +146,9 @@ class Sections extends PageFormat {
         ));
   }
 
-  Container lowerSection({List option}) {
+  Container lowerSection({List option, String formType}) {
     var smallWidgets = SmallWidgets(super.context);
+
     return Container(
       //padding: EdgeInsets.only(bottom: 80.0),
       width: super.fullWidth,
@@ -158,7 +159,8 @@ class Sections extends PageFormat {
       child: Center(
           child: smallWidgets.optionsBtn(
               option.toString().replaceAll(RegExp(r'[^\w\s]+'), ''),
-              buttonType: 'dark')),
+              buttonType: 'dark',
+              formType: formType)),
     );
   }
 }

@@ -10,6 +10,7 @@ class SmallWidgets extends PageFormat {
       {String buttonType,
       double circBorder = 0.0,
       double buttonWidth = 150,
+      String formType,
       name,
       contact,
       vtype,
@@ -32,7 +33,15 @@ class SmallWidgets extends PageFormat {
 
     return ElevatedButton(
       onPressed: () {
-        if (name != null) {
+        widgetMethods.optionResponse(
+            response: option,
+            formType: formType,
+            name: name,
+            contact: contact,
+            vtype: vtype,
+            pnum: pnum,
+            purpose: purpose);
+        /*if (name != null) {
           widgetMethods.optionResponse(
               response: option,
               name: name,
@@ -41,8 +50,8 @@ class SmallWidgets extends PageFormat {
               pnum: pnum,
               purpose: purpose);
         } else {
-          widgetMethods.optionResponse(response: option);
-        }
+          
+        }*/
       },
       child: Text(option,
           style: TextStyle(
