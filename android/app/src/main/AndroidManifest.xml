@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.digi_logsec">
    <application
+        android:usesCleartextTraffic="true"
         android:label="digi_logsec"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
 import 'essentials/page_format.dart';
 import 'essentials/pass_arguments.dart';
@@ -10,9 +7,9 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: ThemeData(scaffoldBackgroundColor: Color.fromRGBO(253, 180, 23, 1)),
-    initialRoute: '/',
+    initialRoute: '/home',
     routes: {
-      '/': (context) => Dashboard(),
+      '/home': (context) => Dashboard(),
       '/qr': (context) => ScanQR(),
       '/foot': (context) => OnFoot(),
       '/vehicle': (context) => WithVehicle(),

@@ -30,7 +30,7 @@ class WidgetMethods extends PageFormat {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text("Entry Added")));
           Future.delayed(Duration(seconds: 1), () {
-            Navigator.pop(context);
+            Navigator.popUntil(context, ModalRoute.withName('/home'));
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
