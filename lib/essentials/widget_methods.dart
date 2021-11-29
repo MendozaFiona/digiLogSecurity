@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:digi_logsec/essentials/pass_arguments.dart';
 import 'package:digi_logsec/essentials/sections.dart';
 import 'package:digi_logsec/services/visitor_service.dart';
@@ -24,25 +26,28 @@ class WidgetMethods extends PageFormat {
       }
 
       try {
-        var res = await addVisitor(_visitorData);
+        final result = await InternetAddress.lookup('example.com');
+        if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          var res = await addVisitor(_visitorData);
 
-        if (res.message != "Cannot process request. Input errors.") {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text("Entry Added")));
-          Future.delayed(Duration(seconds: 1), () {
-            Navigator.popUntil(context, ModalRoute.withName('/home'));
-          });
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(
-            "Failed to Save Information. Please try again.",
-            style: TextStyle(color: Color.fromRGBO(239, 224, 187, 1)),
-          )));
+          if (res.message != "Cannot process request. Input errors.") {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text("Entry Added")));
+            Future.delayed(Duration(seconds: 1), () {
+              Navigator.popUntil(context, ModalRoute.withName('/home'));
+            });
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+              "Failed to Save Information. Please try again.",
+              style: TextStyle(color: Color.fromRGBO(239, 224, 187, 1)),
+            )));
+          }
         }
-      } catch (error) {
+      } on SocketException catch (error) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(
-          "${error.message}",
+          "Failed to connect to the internet.",
           style: TextStyle(color: Color.fromRGBO(239, 224, 187, 1)),
         )));
       }
