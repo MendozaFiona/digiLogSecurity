@@ -67,21 +67,6 @@ class PageFormat {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    if (pageType == 'List')
-                      Flexible(
-                        child: Stack(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                VisitSearch(),
-                              ],
-                            ),
-                            sections.middleSection(
-                                title: sectionTitle, pageType: pageType),
-                          ],
-                        ),
-                      ),
                     if (pageType == 'Home' || pageType == 'Form')
                       sections.middleSection(
                         title: sectionTitle,
@@ -93,11 +78,6 @@ class PageFormat {
             ),
           ),
         ),
-        Flexible(
-            flex: lowerFlex,
-            child: Column(children: [
-              if (pageType == 'Home') smallWidgets.optionsBtn('Ongoing Visits'),
-            ]))
       ],
     ));
   }

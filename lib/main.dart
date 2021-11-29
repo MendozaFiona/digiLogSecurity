@@ -17,7 +17,6 @@ void main() {
       '/foot': (context) => OnFoot(),
       '/vehicle': (context) => WithVehicle(),
       '/ocr': (context) => ScanOCR(),
-      '/ongoing': (context) => OngoingVisits(),
     },
   ));
 }
@@ -161,36 +160,6 @@ class _ScanOCRState extends State<ScanOCR> {
         middleFlex: 11,
         lowerFlex: 2,
         pageType: 'Scan',
-      ),
-    );
-  }
-}
-
-class OngoingVisits extends StatefulWidget {
-  //const OngoingVisits({ Key? key }) : super(key: key);
-
-  @override
-  OngoingVisitsState createState() => OngoingVisitsState();
-}
-
-class OngoingVisitsState extends State<OngoingVisits> {
-  FloatingSearchBarController visitSearchController;
-  String selectedTerm;
-
-  @override
-  Widget build(BuildContext context) {
-    var ongoingVisit = PageFormat(context);
-    DateTime now = new DateTime.now();
-    String dateToday = DateFormat("MMMM d, y").format(now);
-
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: ongoingVisit.bodyFormat(
-        name: 'Ongoing Visits',
-        upperFlex: 3,
-        middleFlex: 13,
-        pageType: 'List',
-        sectionTitle: dateToday,
       ),
     );
   }

@@ -109,12 +109,6 @@ class WidgetMethods extends PageFormat {
         }
         break;
 
-      case "Ongoing Visits":
-        {
-          Navigator.pushNamed(this.context, '/ongoing');
-        }
-        break;
-
       case "OCR":
         {
           Navigator.pushNamed(this.context, '/ocr');
