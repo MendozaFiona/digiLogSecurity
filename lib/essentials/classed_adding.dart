@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:digi_logsec/main.dart';
 import 'package:flutter/services.dart';
 
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class FormSection extends StatefulWidget {
@@ -135,6 +133,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           child: TextFormField(
             validator: WidgetMethods.validateForm(
               inputExp: exp,
+              label: widget.label,
             ),
             controller: widget.fieldController,
             textAlign: TextAlign.center,

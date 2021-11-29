@@ -19,8 +19,8 @@ class WidgetMethods extends PageFormat {
       };
 
       if (pnum.text != '') {
-        _visitorData['vtype'] = vtype.text;
-        _visitorData['pnum'] = pnum.text;
+        _visitorData['vehicle_type'] = vtype.text;
+        _visitorData['plate_num'] = pnum.text;
       }
 
       try {
@@ -28,14 +28,14 @@ class WidgetMethods extends PageFormat {
 
         if (res.message != "Cannot process request. Input errors.") {
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text("Registration Successful")));
+              .showSnackBar(SnackBar(content: Text("Entry Added")));
           Future.delayed(Duration(seconds: 1), () {
             Navigator.pop(context);
           });
         } else {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text(
-            "The email has already been taken",
+            "Failed to Save Information. Please try again.",
             style: TextStyle(color: Color.fromRGBO(239, 224, 187, 1)),
           )));
         }
@@ -49,12 +49,24 @@ class WidgetMethods extends PageFormat {
     }
   }
 
-  static validateForm({inputExp, String errResponse = "Invalid Input"}) {
+  static validateForm({label, inputExp, String errResponse = "Invalid Input"}) {
     return (value) {
+      //print(value);
       if (value.isEmpty) {
         return "This field is required";
       } else if (inputExp.hasMatch(value) == false) {
         return errResponse;
+      }
+
+      if (label == "Contact Number") {
+        String contactValue = value[0] + value[1];
+        if (value.length > 11 || value.length < 11 || contactValue != '09') {
+          return "Invalid contact number";
+        }
+      } else if (label != 'Plate Number') {
+        if (int.tryParse(value[0]) != null) {
+          return "Invalid input";
+        }
       }
 
       return null;

@@ -1,1 +1,1 @@
-const API_URL = 'http://192.168.22.3:8000/api'; // not final
+const API_URL = 'http://localhost:8000/api'; // not final
