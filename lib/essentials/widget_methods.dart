@@ -39,7 +39,7 @@ class WidgetMethods extends PageFormat {
           } else {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
-              "Failed to Save Information. Please try again.",
+              "Failed to Save Information. Please Recheck Your Input Fields.",
               style: TextStyle(color: Color.fromRGBO(239, 224, 187, 1)),
             )));
           }
@@ -71,6 +71,12 @@ class WidgetMethods extends PageFormat {
       } else if (label != 'Plate Number') {
         if (int.tryParse(value[0]) != null) {
           return "Invalid input";
+        }
+      }
+
+      if (label == "Name" || label == "Purpose") {
+        if (value.length < 3) {
+          return "Input too short";
         }
       }
 
