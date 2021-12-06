@@ -2,7 +2,7 @@
     package="com.example.digi_logsec">
    <application
         android:usesCleartextTraffic="true"
-        android:label="digi_logsec"
+        android:label="DigiLog - Security"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
