@@ -9,9 +9,9 @@ import 'package:digi_logsec/essentials/page_format.dart';
 class WidgetMethods extends PageFormat {
   WidgetMethods(BuildContext context) : super(context);
 
-  _register({name, contact, vtype, pnum, purpose}) async {
+  _register({name, contact, vtype, pnum, purpose, key}) async {
     var sections = Sections(super.context);
-    var formKey = sections.getKey();
+    var formKey = key;
 
     if (formKey.currentState.validate()) {
       Map _visitorData = {
@@ -56,7 +56,6 @@ class WidgetMethods extends PageFormat {
 
   static validateForm({label, inputExp, String errResponse = "Invalid Input"}) {
     return (value) {
-      //print(value);
       if (value.isEmpty) {
         return "This field is required";
       } else if (inputExp.hasMatch(value) == false) {
@@ -84,45 +83,39 @@ class WidgetMethods extends PageFormat {
     };
   }
 
-  optionResponse(
-      {String response,
-      String formType,
-      key,
-      method,
-      name,
-      contact,
-      vtype,
-      pnum,
-      purpose}) {
+  optionResponse({
+    String response,
+    String formType,
+    key,
+    method,
+    name,
+    contact,
+    vtype,
+    pnum,
+    purpose,
+  }) {
     switch (response) {
       case "On Foot":
         {
-          Navigator.pushNamed(this.context, '/qr',
+          Navigator.popAndPushNamed(this.context, '/qr',
               arguments: ScreenArguments(formType: 'OnFoot'));
         }
         break;
 
       case "Manual Input":
         {
-          print(formType);
           if (formType == 'WithVehicle') {
-            Navigator.pushNamed(this.context, '/vehicle');
+            Navigator.popAndPushNamed(this.context, '/vehicle');
           } else {
-            Navigator.pushNamed(this.context, '/foot');
+            Navigator.popAndPushNamed(this.context, '/foot');
           }
         }
         break;
 
       case "With Vehicle":
         {
-          Navigator.pushNamed(this.context, '/qr',
+          Navigator.popAndPushNamed(this.context, '/qr',
               arguments: ScreenArguments(formType: 'WithVehicle'));
-        }
-        break;
-
-      case "OCR":
-        {
-          Navigator.pushNamed(this.context, '/ocr');
         }
         break;
 
@@ -133,8 +126,17 @@ class WidgetMethods extends PageFormat {
               contact: contact,
               vtype: vtype,
               pnum: pnum,
-              purpose: purpose);
+              purpose: purpose,
+              key: key);
           //Navigator.pop(this.context, true); // for testing only
+        }
+        break;
+
+      case "Cancel":
+        {
+          //Navigator.popAndPushNamed(this.context, '/home');
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              '/home', (Route<dynamic> route) => false);
         }
         break;
 

@@ -13,7 +13,8 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class FormSection extends StatefulWidget {
   final extractedData;
   final formType;
-  const FormSection({Key key, this.extractedData, this.formType})
+  final formKey;
+  const FormSection({Key key, this.extractedData, this.formType, this.formKey})
       : super(key: key);
 
   @override
@@ -39,7 +40,7 @@ class _FormSectionState extends State<FormSection> {
   Widget build(BuildContext context) {
     var sections = Sections(context);
 
-    final formKey = sections.getKey();
+    final formKey = widget.formKey;
 
     @override
     void dispose() {
@@ -73,7 +74,8 @@ class _FormSectionState extends State<FormSection> {
               contact: contactCtrlr,
               vtype: vehicleTypeCtrlr,
               pnum: plateNumCtrlr,
-              purpose: purposeCtrlr)
+              purpose: purposeCtrlr,
+              key: formKey)
         ],
       ),
     );
@@ -96,13 +98,13 @@ class CustomFormField extends StatefulWidget {
 }
 
 class _CustomFormFieldState extends State<CustomFormField> {
+  var btnEditable = true;
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      if (widget.label == 'Name' && widget.extractedData != null) {
-        widget.fieldController.text = widget.extractedData;
-      }
-    });
+    if (widget.label == 'Name' && widget.extractedData != null) {
+      widget.fieldController.text = widget.extractedData;
+      btnEditable = false;
+    }
     TextInputType fieldType = TextInputType.text;
     double fieldHeight = 60;
     int length = 40;
@@ -131,6 +133,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
           width: 240,
           height: fieldHeight,
           child: TextFormField(
+            enabled: btnEditable,
             validator: WidgetMethods.validateForm(
               inputExp: exp,
               label: widget.label,
@@ -153,9 +156,12 @@ class _CustomFormFieldState extends State<CustomFormField> {
 
 class QRScanPage extends ScanQR {
   //const QRScanPage({ Key? key }) : super(key: key);
+  final formType;
+
+  QRScanPage(this.formType);
 
   @override
-  _QRScanPageState createState() => _QRScanPageState();
+  _QRScanPageState createState() => _QRScanPageState(formType: formType);
 }
 
 class _QRScanPageState extends ScanQRState {
@@ -163,6 +169,9 @@ class _QRScanPageState extends ScanQRState {
   QRViewController controller;
   Barcode barcode;
   bool alreadyPassed;
+  var formType;
+
+  _QRScanPageState({this.formType});
 
   @override
   initState() {
@@ -176,13 +185,19 @@ class _QRScanPageState extends ScanQRState {
     super.dispose();
   }
 
-  passResult() {
+  passResult(_formType) {
     if (barcode != null) {
       if (alreadyPassed == false) {
         alreadyPassed = true;
         Future.delayed(Duration.zero, () async {
-          var nav = await Navigator.pushNamed(context, '/foot',
-              arguments: ScreenArguments(code: barcode.code));
+          var nav;
+          if (formType == "WithVehicle") {
+            nav = await Navigator.pushNamed(context, '/vehicle',
+                arguments: ScreenArguments(code: barcode.code));
+          } else {
+            nav = await Navigator.pushNamed(context, '/foot',
+                arguments: ScreenArguments(code: barcode.code));
+          }
 
           if (nav == null) {
             alreadyPassed = false;
@@ -194,7 +209,7 @@ class _QRScanPageState extends ScanQRState {
 
   @override
   Widget build(BuildContext context) {
-    passResult();
+    passResult(formType);
 
     return Container(
         alignment: Alignment.center,
@@ -230,6 +245,7 @@ class _QRScanPageState extends ScanQRState {
 
       controller.scannedDataStream.listen((barcode) {
         setState(() {
+          controller.pauseCamera();
           this.barcode = barcode;
         });
       });

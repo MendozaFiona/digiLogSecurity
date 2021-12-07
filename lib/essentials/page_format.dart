@@ -22,6 +22,7 @@ class PageFormat {
     int lowerFlex = 0,
     String pageType,
     var extractedData,
+    key,
   }) {
     var sections = Sections(this.context);
     var smallWidgets = SmallWidgets(this.context);
@@ -72,11 +73,17 @@ class PageFormat {
                         options: options,
                         pageType: pageType,
                         extractedData: extractedData,
+                        key: key,
                       ),
                   ]),
             ),
           ),
         ),
+        if (pageType == 'Form')
+          Container(
+              height: (this.fullHeight / (upperFlex + middleFlex + lowerFlex)) *
+                  lowerFlex,
+              child: sections.lowerSection(option: ['Cancel'])),
       ],
     ));
   }
@@ -103,7 +110,7 @@ class PageFormat {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              child: QRScanPage(),
+              child: QRScanPage(formType),
             ),
           ],
         ),

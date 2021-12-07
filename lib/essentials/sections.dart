@@ -5,11 +5,6 @@ import 'package:digi_logsec/essentials/small_widgets.dart';
 
 class Sections extends PageFormat {
   Sections(BuildContext context) : super(context);
-  static final _formKey = GlobalKey<FormState>();
-
-  getKey() {
-    return _formKey;
-  }
 
   static Align upperSection({String name, int flex, double fSize}) {
     if (fSize == null) {
@@ -34,6 +29,7 @@ class Sections extends PageFormat {
     List options,
     String pageType,
     var extractedData,
+    key,
   }) {
     double sectionMargin = 0;
     double sectionHeight;
@@ -74,6 +70,7 @@ class Sections extends PageFormat {
                       FormSection(
                         extractedData: extractedData,
                         formType: formType,
+                        formKey: key,
                       ), // change to dynamic later
                     if (pageType == 'List') listSection(),
                   ],
@@ -122,7 +119,7 @@ class Sections extends PageFormat {
     );
   }
 
-  Container formBottomSection({name, contact, vtype, pnum, purpose}) {
+  Container formBottomSection({name, contact, vtype, pnum, purpose, key}) {
     var smallWidgets = SmallWidgets(super.context);
 
     return Container(
@@ -133,15 +130,18 @@ class Sections extends PageFormat {
           children: [
             /*smallWidgets.optionsBtn('OCR',
                 buttonType: 'blue', circBorder: 40.0, buttonWidth: 100),*/ //return when done with other functions!!!
-            smallWidgets.optionsBtn('Enter',
-                buttonType: 'blue',
-                circBorder: 40.0,
-                buttonWidth: 100,
-                name: name,
-                contact: contact,
-                vtype: vtype,
-                pnum: pnum,
-                purpose: purpose)
+            smallWidgets.optionsBtn(
+              'Enter',
+              buttonType: 'blue',
+              circBorder: 40.0,
+              buttonWidth: 100,
+              name: name,
+              contact: contact,
+              vtype: vtype,
+              pnum: pnum,
+              purpose: purpose,
+              key: key,
+            )
           ],
         ));
   }
@@ -157,10 +157,16 @@ class Sections extends PageFormat {
         borderRadius: BorderRadius.vertical(top: Radius.circular(50)),
       ),
       child: Center(
-          child: smallWidgets.optionsBtn(
-              option.toString().replaceAll(RegExp(r'[^\w\s]+'), ''),
-              buttonType: 'dark',
-              formType: formType)),
+          child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          for (var optionSelected in option)
+            smallWidgets.optionsBtn(
+                optionSelected.toString().replaceAll(RegExp(r'[^\w\s]+'), ''),
+                buttonType: 'dark',
+                formType: formType),
+        ],
+      )),
     );
   }
 }

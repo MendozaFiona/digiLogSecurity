@@ -13,7 +13,6 @@ void main() {
       '/qr': (context) => ScanQR(),
       '/foot': (context) => OnFoot(),
       '/vehicle': (context) => WithVehicle(),
-      '/ocr': (context) => ScanOCR(),
     },
   ));
 }
@@ -44,6 +43,8 @@ class Dashboard extends StatelessWidget {
 }
 
 class ScanQR extends StatefulWidget {
+  get formType => null;
+
   //const ScanQR({ Key? key }) : super(key: key);
 
   @override
@@ -56,16 +57,21 @@ class ScanQRState extends State<ScanQR> {
     final args = ModalRoute.of(context).settings.arguments as ScreenArguments;
     var qrScan = PageFormat(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: qrScan.scanFormat(
-        name: 'QR Code Scan',
-        options: ['Manual Input'],
-        upperFlex: 3,
-        middleFlex: 11,
-        lowerFlex: 2,
-        pageType: 'Scan',
-        formType: args.formType,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: qrScan.scanFormat(
+          name: 'QR Code Scan',
+          options: ['Cancel', 'Manual Input'],
+          upperFlex: 3,
+          middleFlex: 11,
+          lowerFlex: 2,
+          pageType: 'Scan',
+          formType: args.formType,
+        ),
       ),
     );
   }
@@ -79,6 +85,7 @@ class OnFoot extends StatefulWidget {
 }
 
 class _OnFootState extends State<OnFoot> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var usercode;
@@ -90,15 +97,22 @@ class _OnFootState extends State<OnFoot> {
 
     var onFoot = PageFormat(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: onFoot.bodyFormat(
-        name: 'Visitor On Foot',
-        upperFlex: 3,
-        middleFlex: 11,
-        pageType: 'Form',
-        sectionTitle: "Visitor's Details",
-        extractedData: usercode,
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: onFoot.bodyFormat(
+          name: 'Visitor On Foot',
+          upperFlex: 3,
+          middleFlex: 11,
+          lowerFlex: 2,
+          pageType: 'Form',
+          sectionTitle: "Visitor's Details",
+          extractedData: usercode,
+          key: _formKey,
+        ),
       ),
     );
   }
@@ -112,6 +126,7 @@ class WithVehicle extends StatefulWidget {
 }
 
 class WithVehicleState extends State<WithVehicle> {
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     var usercode;
@@ -123,40 +138,22 @@ class WithVehicleState extends State<WithVehicle> {
 
     var withVehicle = PageFormat(context);
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: withVehicle.bodyFormat(
-        name: 'Visitor with Vehicle',
-        upperFlex: 3,
-        middleFlex: 11,
-        pageType: 'Form',
-        sectionTitle: "Visitor's Details",
-      ),
-    );
-  }
-}
-
-class ScanOCR extends StatefulWidget {
-  //const ScanOCR({ Key? key }) : super(key: key);
-
-  @override
-  _ScanOCRState createState() => _ScanOCRState();
-}
-
-class _ScanOCRState extends State<ScanOCR> {
-  @override
-  Widget build(BuildContext context) {
-    var ocrScan = PageFormat(context);
-
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: ocrScan.scanFormat(
-        name: 'OCR Scan',
-        options: ['Scan'],
-        upperFlex: 3,
-        middleFlex: 11,
-        lowerFlex: 2,
-        pageType: 'Scan',
+    return WillPopScope(
+      onWillPop: () async {
+        return false;
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: withVehicle.bodyFormat(
+          name: 'Visitor with Vehicle',
+          upperFlex: 3,
+          middleFlex: 11,
+          lowerFlex: 2,
+          pageType: 'Form',
+          sectionTitle: "Visitor's Details",
+          extractedData: usercode,
+          key: _formKey,
+        ),
       ),
     );
   }
