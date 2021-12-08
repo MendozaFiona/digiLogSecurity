@@ -59,17 +59,17 @@ class WidgetMethods extends PageFormat {
       if (value.isEmpty) {
         return "This field is required";
       } else if (inputExp.hasMatch(value) == false) {
-        return errResponse;
+        if (label == 'Plate Number' || label == 'Purpose') {
+          return null;
+        } else {
+          return errResponse;
+        }
       }
 
       if (label == "Contact Number") {
         String contactValue = value[0] + value[1];
         if (value.length > 11 || value.length < 11 || contactValue != '09') {
           return "Invalid contact number";
-        }
-      } else if (label != 'Plate Number') {
-        if (int.tryParse(value[0]) != null) {
-          return "Invalid input";
         }
       }
 
@@ -97,7 +97,7 @@ class WidgetMethods extends PageFormat {
     switch (response) {
       case "On Foot":
         {
-          Navigator.popAndPushNamed(this.context, '/qr',
+          Navigator.pushNamed(this.context, '/qr',
               arguments: ScreenArguments(formType: 'OnFoot'));
         }
         break;
@@ -114,7 +114,7 @@ class WidgetMethods extends PageFormat {
 
       case "With Vehicle":
         {
-          Navigator.popAndPushNamed(this.context, '/qr',
+          Navigator.pushNamed(this.context, '/qr',
               arguments: ScreenArguments(formType: 'WithVehicle'));
         }
         break;
