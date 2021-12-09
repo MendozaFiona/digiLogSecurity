@@ -112,6 +112,7 @@ class _OnFootState extends State<OnFoot> {
           sectionTitle: "Visitor's Details",
           extractedData: usercode,
           key: _formKey,
+          formType: "OnFoot",
         ),
       ),
     );
@@ -153,6 +154,7 @@ class WithVehicleState extends State<WithVehicle> {
           sectionTitle: "Visitor's Details",
           extractedData: usercode,
           key: _formKey,
+          formType: "WithVehicle",
         ),
       ),
     );

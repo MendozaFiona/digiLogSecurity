@@ -23,6 +23,7 @@ class PageFormat {
     String pageType,
     var extractedData,
     key,
+    formType,
   }) {
     var sections = Sections(this.context);
     var smallWidgets = SmallWidgets(this.context);
@@ -74,6 +75,7 @@ class PageFormat {
                         pageType: pageType,
                         extractedData: extractedData,
                         key: key,
+                        formType: formType,
                       ),
                   ]),
             ),

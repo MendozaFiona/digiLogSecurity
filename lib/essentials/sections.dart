@@ -24,16 +24,15 @@ class Sections extends PageFormat {
     );
   }
 
-  Center middleSection({
-    String title = 'Title Here',
-    List options,
-    String pageType,
-    var extractedData,
-    key,
-  }) {
+  Center middleSection(
+      {String title = 'Title Here',
+      List options,
+      String pageType,
+      var extractedData,
+      key,
+      formType}) {
     double sectionMargin = 0;
     double sectionHeight;
-    String formType = this.context.toString().split('(').first;
 
     if (formType == 'WithVehicle') {
       sectionHeight = fullHeight * 0.6;
