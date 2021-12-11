@@ -118,7 +118,7 @@ class Sections extends PageFormat {
     );
   }
 
-  Container formBottomSection({name, contact, vtype, pnum, purpose, key}) {
+  Container formBottomSection({name, contact, vtype, pnum, destination, key}) {
     var smallWidgets = SmallWidgets(super.context);
 
     return Container(
@@ -138,7 +138,7 @@ class Sections extends PageFormat {
               contact: contact,
               vtype: vtype,
               pnum: pnum,
-              purpose: purpose,
+              destination: destination,
               key: key,
             )
           ],

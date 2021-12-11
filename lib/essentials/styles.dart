@@ -25,7 +25,7 @@ class Styles extends PageFormat {
   static InputDecoration formStyle(String label) {
     double conPadding = 1;
 
-    if (label == 'Purpose') {
+    if (label == 'Destination') {
       conPadding = 20;
     }
     return InputDecoration(

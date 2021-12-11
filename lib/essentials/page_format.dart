@@ -1,7 +1,6 @@
 import 'package:digi_logsec/essentials/classed_adding.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/sections.dart';
-import 'package:digi_logsec/essentials/small_widgets.dart';
 
 class PageFormat {
   BuildContext context;
@@ -26,7 +25,6 @@ class PageFormat {
     formType,
   }) {
     var sections = Sections(this.context);
-    var smallWidgets = SmallWidgets(this.context);
     double containerHeight;
     EdgeInsets containerMargin;
     double upperPad = 40.0 / (upperFlex / 2);

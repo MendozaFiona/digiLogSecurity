@@ -15,7 +15,7 @@ class SmallWidgets extends PageFormat {
       contact,
       vtype,
       pnum,
-      purpose,
+      destination,
       key}) {
     var widgetMethods = WidgetMethods(super.context);
     Color btnColor = Color.fromRGBO(243, 233, 211, 1);
@@ -42,7 +42,7 @@ class SmallWidgets extends PageFormat {
             contact: contact,
             vtype: vtype,
             pnum: pnum,
-            purpose: purpose,
+            destination: destination,
             key: key);
         /*if (name != null) {
           widgetMethods.optionResponse(
@@ -51,7 +51,7 @@ class SmallWidgets extends PageFormat {
               contact: contact,
               vtype: vtype,
               pnum: pnum,
-              purpose: purpose);
+              destination: destination);
         } else {
           
         }*/

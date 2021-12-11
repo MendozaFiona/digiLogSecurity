@@ -26,14 +26,14 @@ class _FormSectionState extends State<FormSection> {
   final contactCtrlr = TextEditingController();
   final vehicleTypeCtrlr = TextEditingController();
   final plateNumCtrlr = TextEditingController();
-  final purposeCtrlr = TextEditingController();
+  final destinationCtrlr = TextEditingController();
 
   check() {
     nameCtrlr.dispose();
     contactCtrlr.dispose();
     vehicleTypeCtrlr.dispose();
     plateNumCtrlr.dispose();
-    purposeCtrlr.dispose();
+    destinationCtrlr.dispose();
   }
 
   @override
@@ -65,7 +65,8 @@ class _FormSectionState extends State<FormSection> {
           if (widget.formType == 'WithVehicle')
             CustomFormField(
                 fieldController: plateNumCtrlr, label: 'Plate Number'),
-          CustomFormField(fieldController: purposeCtrlr, label: 'Purpose'),
+          CustomFormField(
+              fieldController: destinationCtrlr, label: 'Destination'),
           SizedBox(
             height: 10,
           ),
@@ -74,7 +75,7 @@ class _FormSectionState extends State<FormSection> {
               contact: contactCtrlr,
               vtype: vehicleTypeCtrlr,
               pnum: plateNumCtrlr,
-              purpose: purposeCtrlr,
+              destination: destinationCtrlr,
               key: formKey)
         ],
       ),
@@ -111,7 +112,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
     int lines = 1;
     var exp = RegExp(r"^[a-z A-Z,.\-]+$");
 
-    if (widget.label == 'Purpose') {
+    if (widget.label == 'Destination') {
       fieldHeight = 100;
       length = 100;
       lines = 2;

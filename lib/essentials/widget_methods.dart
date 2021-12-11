@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:digi_logsec/essentials/pass_arguments.dart';
-import 'package:digi_logsec/essentials/sections.dart';
 import 'package:digi_logsec/services/visitor_service.dart';
 import 'package:flutter/material.dart';
 import 'package:digi_logsec/essentials/page_format.dart';
@@ -9,15 +8,14 @@ import 'package:digi_logsec/essentials/page_format.dart';
 class WidgetMethods extends PageFormat {
   WidgetMethods(BuildContext context) : super(context);
 
-  _register({name, contact, vtype, pnum, purpose, key}) async {
-    var sections = Sections(super.context);
+  _register({name, contact, vtype, pnum, destination, key}) async {
     var formKey = key;
 
     if (formKey.currentState.validate()) {
       Map _visitorData = {
         'name': name.text,
         'contact': contact.text,
-        'purpose': purpose.text,
+        'destination': destination.text,
       };
 
       if (pnum.text != '') {
@@ -59,7 +57,7 @@ class WidgetMethods extends PageFormat {
       if (value.isEmpty) {
         return "This field is required";
       } else if (inputExp.hasMatch(value) == false) {
-        if (label == 'Plate Number' || label == 'Purpose') {
+        if (label == 'Plate Number' || label == 'Destination') {
           return null;
         } else {
           return errResponse;
@@ -73,7 +71,7 @@ class WidgetMethods extends PageFormat {
         }
       }
 
-      if (label == "Name" || label == "Purpose") {
+      if (label == "Name" || label == "Destination") {
         if (value.length < 3) {
           return "Input too short";
         }
@@ -92,7 +90,7 @@ class WidgetMethods extends PageFormat {
     contact,
     vtype,
     pnum,
-    purpose,
+    destination,
   }) {
     switch (response) {
       case "On Foot":
@@ -126,7 +124,7 @@ class WidgetMethods extends PageFormat {
               contact: contact,
               vtype: vtype,
               pnum: pnum,
-              purpose: purpose,
+              destination: destination,
               key: key);
           //Navigator.pop(this.context, true); // for testing only
         }
